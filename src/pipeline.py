@@ -1,16 +1,9 @@
 """Pipeline d'analyse de rêves."""
 
 from src.models.classifier import classify_dream_type
+from src.models.embeddings import find_similar
 from src.models.emotions import detect_emotions
 from src.utils.colors import dominant_color
-
-# TEMPORAIRE : similar_dreams reste fixe en attendant la recherche FAISS
-# (src/models/embeddings.find_similar, pas encore implémentée).
-_PLACEHOLDER_SIMILAR_DREAMS = [
-    "Je retrouvais mon grand-père dans la maison de mon enfance.",
-    "Une voix familière me murmurait des conseils pendant la nuit.",
-    "Des photos anciennes prenaient vie sous mes yeux endormis.",
-]
 
 
 def analyze_dream(text: str) -> dict:
@@ -26,5 +19,5 @@ def analyze_dream(text: str) -> dict:
         "type": dominant_type,
         "emotions": emotions,
         "color": dominant_color(emotions),
-        "similar_dreams": _PLACEHOLDER_SIMILAR_DREAMS,
+        "similar_dreams": find_similar(text, k=5),
     }

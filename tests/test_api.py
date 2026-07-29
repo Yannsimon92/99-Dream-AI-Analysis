@@ -22,6 +22,11 @@ def _stub_models(monkeypatch: pytest.MonkeyPatch) -> None:
         "classify_dream_type",
         lambda text: {"nostalgique": 0.5, "normal": 0.3, "absurde": 0.2},
     )
+    monkeypatch.setattr(
+        pipeline,
+        "find_similar",
+        lambda text, k=5: ["Un rêve similaire.", "Un autre rêve proche."],
+    )
 
 
 def test_health() -> None:
