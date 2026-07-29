@@ -1,27 +1,30 @@
-"""Pipeline d'analyse de rêves (placeholder temporaire)."""
+"""Pipeline d'analyse de rêves."""
 
-# TEMPORAIRE : cette fonction retourne des données fixes en attendant que
-# les modules src/models/classifier.py, src/models/emotions.py et
-# src/utils/colors.py soient implémentés et branchés ici.
+from src.models.emotions import detect_emotions
+from src.utils.colors import dominant_color
+
+# TEMPORAIRE : type et similar_dreams restent fixes en attendant que
+# src/models/classifier.py (classification) et la recherche FAISS
+# (src/models/embeddings.find_similar, pas encore implémentée) soient
+# branchés ici.
+_PLACEHOLDER_TYPE = "nostalgique"
+_PLACEHOLDER_SIMILAR_DREAMS = [
+    "Je retrouvais mon grand-père dans la maison de mon enfance.",
+    "Une voix familière me murmurait des conseils pendant la nuit.",
+    "Des photos anciennes prenaient vie sous mes yeux endormis.",
+]
 
 
 def analyze_dream(text: str) -> dict:
-    """Analyse un récit de rêve et renvoie un résumé structuré (placeholder)."""
+    """Analyse un récit de rêve et renvoie un résumé structuré."""
     if not text or not text.strip():
         raise ValueError("Le texte du rêve ne peut pas être vide.")
 
+    emotions = detect_emotions(text)
+
     return {
-        "type": "nostalgique",
-        "emotions": {
-            "joie": 0.4,
-            "peur": 0.25,
-            "surprise": 0.2,
-            "tristesse": 0.15,
-        },
-        "color": "#E4A672",
-        "similar_dreams": [
-            "Je retrouvais mon grand-père dans la maison de mon enfance.",
-            "Une voix familière me murmurait des conseils pendant la nuit.",
-            "Des photos anciennes prenaient vie sous mes yeux endormis.",
-        ],
+        "type": _PLACEHOLDER_TYPE,
+        "emotions": emotions,
+        "color": dominant_color(emotions),
+        "similar_dreams": _PLACEHOLDER_SIMILAR_DREAMS,
     }

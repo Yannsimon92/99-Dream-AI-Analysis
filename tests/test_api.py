@@ -1,10 +1,22 @@
 """Tests de l'API FastAPI (app/main.py)."""
 
+import pytest
 from fastapi.testclient import TestClient
 
+import src.pipeline as pipeline
 from app.main import app
 
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def _stub_detect_emotions(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Évite d'appeler le vrai modèle transformers (lourd, réseau) pendant les tests API."""
+    monkeypatch.setattr(
+        pipeline,
+        "detect_emotions",
+        lambda text: {"joy": 0.6, "fear": 0.25, "sadness": 0.15},
+    )
 
 
 def test_health() -> None:
