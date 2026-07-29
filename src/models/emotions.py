@@ -23,5 +23,6 @@ def detect_emotions(text: str) -> dict[str, float]:
         raise ValueError("text ne doit pas être vide ni réduit à des espaces")
 
     model = _get_model()
-    raw = model(text, top_k=None)
-    return {entry["label"]: float(entry["score"]) for entry in raw[0]}
+    raw = model(text)
+    entries = raw[0] if raw and isinstance(raw[0], list) else raw
+    return {entry["label"]: float(entry["score"]) for entry in entries}
