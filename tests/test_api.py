@@ -10,12 +10,17 @@ client = TestClient(app)
 
 
 @pytest.fixture(autouse=True)
-def _stub_detect_emotions(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Évite d'appeler le vrai modèle transformers (lourd, réseau) pendant les tests API."""
+def _stub_models(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Évite d'appeler les vrais modèles transformers (lourds, réseau) pendant les tests API."""
     monkeypatch.setattr(
         pipeline,
         "detect_emotions",
         lambda text: {"joy": 0.6, "fear": 0.25, "sadness": 0.15},
+    )
+    monkeypatch.setattr(
+        pipeline,
+        "classify_dream_type",
+        lambda text: {"nostalgique": 0.5, "normal": 0.3, "absurde": 0.2},
     )
 
 
