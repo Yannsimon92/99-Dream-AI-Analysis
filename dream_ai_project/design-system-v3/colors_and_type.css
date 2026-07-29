@@ -1,0 +1,177 @@
+/* ============================================================
+   DREAM AI — Design System
+   "Cream & Blobs" — editorial · oneiric · luminous
+   Foundations: color + typography tokens
+   ============================================================
+   Fonts are loaded from Google Fonts. Both families used here
+   (Fraunces, JetBrains Mono) are freely available there — no
+   substitution was needed. To work offline, drop the .woff2
+   files in fonts/ and replace the @import with @font-face.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+
+:root {
+  /* ---- Base palette -------------------------------------- */
+  --cream:            #f0ece2;   /* warm cream — primary bg     */
+  --cream-bright:     #e8e4da;   /* luminous beige — bg variant */
+  --paper:            #f6f3ec;   /* lightest paper tint         */
+
+  /* ---- Ink / text ---------------------------------------- */
+  --ink:              #1a1410;             /* near-black brown   */
+  --ink-90:           rgba(26, 20, 16, 0.90);
+  --ink-70:           rgba(26, 20, 16, 0.70);  /* secondary text */
+  --ink-50:           rgba(26, 20, 16, 0.50);  /* tertiary text  */
+  --ink-35:           rgba(26, 20, 16, 0.35);  /* markers        */
+  --ink-20:           rgba(26, 20, 16, 0.20);  /* hairline       */
+  --ink-12:           rgba(26, 20, 16, 0.12);  /* faint border   */
+
+  /* ---- Accents ------------------------------------------- */
+  --terracotta:       #b85040;   /* primary accent — italics    */
+  --blue:             #5070b0;   /* secondary accent            */
+  --violet:           #8050a0;   /* tertiary accent             */
+
+  /* ---- Emotion blob palette (desaturated, dreamy) -------- */
+  --blob-peach:       #f0a890;   /* warmth     */
+  --blob-sky:         #a8c8e8;   /* calm       */
+  --blob-yellow:      #e8c870;   /* joy        */
+  --blob-lavender:    #c898d0;   /* mystery    */
+  --blob-sage:        #c8d8a0;   /* serenity   */
+  --blob-coral:       #e8a880;   /* energy     */
+
+  /* ---- Surfaces ------------------------------------------ */
+  --surface:          rgba(255, 255, 255, 0.50);  /* cards      */
+  --surface-pill:     rgba(255, 255, 255, 0.45);  /* tags       */
+  --surface-strong:   rgba(255, 255, 255, 0.70);  /* nav bar    */
+
+  /* ---- Type families ------------------------------------- */
+  --serif:  'Fraunces', 'Times New Roman', serif;
+  --mono:   'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+
+  /* ---- Type scale (px) ----------------------------------- */
+  --t-display:   80px;   /* hero / cover title              */
+  --t-slide:     64px;   /* slide title                     */
+  --t-section:   50px;   /* section header                  */
+  --t-subtitle:  22px;   /* italic subtitle                 */
+  --t-feature:   17px;   /* feature name (italic)           */
+  --t-body:      13px;   /* body copy                       */
+  --t-label:     10px;   /* uppercase category label        */
+  --t-detail:    9px;    /* metadata / slide numbers        */
+
+  /* ---- Weights ------------------------------------------- */
+  --w-light:    300;
+  --w-regular:  400;
+  --w-medium:   500;
+
+  /* ---- Spacing (8px grid) -------------------------------- */
+  --space-xs:   8px;
+  --space-sm:   16px;
+  --space-md:   24px;
+  --space-lg:   32px;
+  --space-xl:   48px;
+  --space-2xl:  80px;
+
+  /* ---- Radii --------------------------------------------- */
+  --radius-card:  14px;
+  --radius-pill:  100px;
+  --radius-full:  50%;
+
+  /* ---- Motion -------------------------------------------- */
+  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-enter:   0.7s;
+  --dur-nav:     0.8s;
+
+  /* ---- Dot grid background ------------------------------- */
+  --grid-dot:    radial-gradient(circle, rgba(26, 20, 16, 0.12) 1px, transparent 1px);
+  --grid-size:   22px;
+}
+
+/* ============================================================
+   SEMANTIC TYPE ROLES
+   Apply these classes (or copy the rules) for consistent type.
+   ============================================================ */
+
+.ds-display {
+  font-family: var(--serif);
+  font-size: var(--t-display);
+  font-weight: var(--w-light);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.ds-slide-title {
+  font-family: var(--serif);
+  font-size: var(--t-slide);
+  font-weight: var(--w-light);
+  line-height: 1.0;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.ds-section-title {
+  font-family: var(--serif);
+  font-size: var(--t-section);
+  font-weight: var(--w-light);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* terracotta italic accent — used inside any serif heading */
+.ds-em {
+  font-style: italic;
+  color: var(--terracotta);
+}
+
+.ds-subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: var(--t-subtitle);
+  font-weight: var(--w-light);
+  line-height: 1.4;
+  color: var(--ink-70);
+}
+
+.ds-feature {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: var(--t-feature);
+  font-weight: var(--w-light);
+  color: var(--ink);
+}
+
+.ds-body {
+  font-family: var(--mono);
+  font-size: var(--t-body);
+  font-weight: var(--w-light);
+  line-height: 1.8;
+  color: var(--ink-70);
+}
+
+.ds-label {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  font-weight: var(--w-regular);
+  letter-spacing: 0.3em;       /* 3px @ 10px */
+  text-transform: uppercase;
+  color: var(--ink-50);
+}
+
+.ds-detail {
+  font-family: var(--mono);
+  font-size: var(--t-detail);
+  font-weight: var(--w-light);
+  letter-spacing: 0.18em;
+  color: var(--ink-50);
+}
+
+/* ============================================================
+   BACKGROUNDS
+   ============================================================ */
+
+.ds-grid-bg {
+  background-image: var(--grid-dot);
+  background-size: var(--grid-size) var(--grid-size);
+  opacity: 0.5;
+}

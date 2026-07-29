@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); font-family: var(--font-sans); padding: 22px 24px; }
+  .row { display:flex; gap:14px; }
+  .sw { flex:1; }
+  .chip { height:50px; border-radius:13px 13px 0 0; }
+  .foot { background:var(--surface-2); border-radius:0 0 13px 13px; padding:8px 10px; border:1px solid var(--border-soft); border-top:none; }
+  .name { font-size:12px; font-weight:600; color:var(--ink-1); }
+  .hex { font-size:10.5px; color:var(--ink-3); margin-top:1px; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--success-500)"></div><div class="foot"><div class="name">success</div><div class="hex">#5E8467</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--error-500)"></div><div class="foot"><div class="name">error</div><div class="hex">#C6695C</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--warning-500)"></div><div class="foot"><div class="name">warning</div><div class="hex">#C98B3E</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--info-500)"></div><div class="foot"><div class="name">info</div><div class="hex">#7E97D6</div></div></div>
+  </div>
+</body>
+</html>

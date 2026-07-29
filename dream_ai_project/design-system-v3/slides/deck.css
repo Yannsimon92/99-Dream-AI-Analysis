@@ -1,0 +1,155 @@
+/* ============================================================
+   Dream AI — Deck shell styles
+   Requires ../colors_and_type.css + ../components.css
+   ============================================================ */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: #0b0a08;            /* letterbox */
+  font-family: var(--mono);
+  overflow: hidden;
+}
+
+/* ---- Stage / scaling -------------------------------------- */
+#stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+#canvas {
+  width: 1280px;
+  height: 720px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform-origin: center center;
+  background: var(--cream);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+}
+
+/* ---- Track / slides --------------------------------------- */
+#track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--dur-nav) var(--ease);
+}
+.slide {
+  position: relative;
+  flex: 0 0 1280px;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  background: var(--cream);
+}
+.slide-grid {
+  position: absolute; inset: 0;
+  background-image: var(--grid-dot);
+  background-size: var(--grid-size) var(--grid-size);
+  opacity: 0.5;
+  z-index: 0;
+}
+.slide-inner {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 84px 88px 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.slide-footer {
+  position: absolute;
+  left: 88px; right: 88px; bottom: 40px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-50);
+}
+
+/* ---- Gate entrance animation to the active slide ---------- */
+.slide-inner .ds-up { opacity: 0; animation: none; }
+.slide-inner.is-active .ds-up {
+  animation: ds-fade-up var(--dur-enter) var(--ease) forwards;
+}
+.slide-inner.is-active .ds-up.d1 { animation-delay: 0.10s; }
+.slide-inner.is-active .ds-up.d2 { animation-delay: 0.20s; }
+.slide-inner.is-active .ds-up.d3 { animation-delay: 0.30s; }
+.slide-inner.is-active .ds-up.d4 { animation-delay: 0.35s; }
+.slide-inner.is-active .ds-up.d5 { animation-delay: 0.40s; }
+.slide-inner.is-active .ds-up.d6 { animation-delay: 0.50s; }
+
+/* Robust fallback: if motion is reduced, show active content statically
+   (also guards static exports / background-tab loads). */
+@media (prefers-reduced-motion: reduce) {
+  .slide-inner.is-active .ds-up {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* ---- Top nav bar ------------------------------------------ */
+#nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  background: var(--surface-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--ink-12);
+}
+#nav .nav-label, #nav .nav-counter {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-70);
+}
+#dots { display: flex; gap: 10px; align-items: center; }
+#dots .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ink-20);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.4s var(--ease), background 0.4s var(--ease);
+}
+#dots .dot.active {
+  transform: scale(1.8);
+  background: var(--terracotta);
+}
+
+/* ---- Arrows (outside the scaled canvas) ------------------- */
+.arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.arrow:hover { background: rgba(255,255,255,0.18); }
+.arrow.prev { left: 22px; }
+.arrow.next { right: 22px; }
+.arrow:disabled { opacity: 0.25; cursor: default; }

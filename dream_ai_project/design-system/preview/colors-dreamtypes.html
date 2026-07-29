@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); font-family: var(--font-sans); padding: 22px 24px; }
+  .grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .card { border-radius:16px; padding:14px 14px 16px; }
+  .dot { width:18px; height:18px; border-radius:50%; margin-bottom:auto; }
+  .top { display:flex; align-items:center; gap:8px; }
+  .name { font-size:13px; font-weight:600; }
+  .desc { font-size:11px; margin-top:18px; line-height:1.4; opacity:.85; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="card" style="background:var(--dream-nightmare-bg);color:var(--dream-nightmare-ink)"><div class="top"><span class="dot" style="background:var(--dream-nightmare)"></span><span class="name">Cauchemar</span></div><div class="desc">rouge désaturé</div></div>
+    <div class="card" style="background:var(--dream-lucid-bg);color:var(--dream-lucid-ink)"><div class="top"><span class="dot" style="background:var(--dream-lucid)"></span><span class="name">Lucide</span></div><div class="desc">bleu-violet</div></div>
+    <div class="card" style="background:var(--dream-nostalgic-bg);color:var(--dream-nostalgic-ink)"><div class="top"><span class="dot" style="background:var(--dream-nostalgic)"></span><span class="name">Nostalgique</span></div><div class="desc">ambre chaud</div></div>
+    <div class="card" style="background:var(--dream-absurd-bg);color:var(--dream-absurd-ink)"><div class="top"><span class="dot" style="background:var(--dream-absurd)"></span><span class="name">Absurde</span></div><div class="desc">vert sauge</div></div>
+    <div class="card" style="background:var(--dream-positive-bg);color:var(--dream-positive-ink)"><div class="top"><span class="dot" style="background:var(--dream-positive)"></span><span class="name">Positif</span></div><div class="desc">rose poudré</div></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="56" viewBox="0 0 220 56" fill="none">
+  <defs>
+    <radialGradient id="aurora" cx="32%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#F2B8D0"></stop>
+      <stop offset="55%" stop-color="#C9B6E8"></stop>
+      <stop offset="100%" stop-color="#9385C0"></stop>
+    </radialGradient>
+  </defs>
+  <circle cx="22" cy="28" r="15" fill="url(#aurora)"></circle>
+  <text x="48" y="38" font-family="&#39;Playfair Display&#39;, Georgia, serif" font-style="italic" font-weight="500" font-size="30" fill="#2C2622">Dream</text>
+  <text x="166" y="36" font-family="&#39;DM Sans&#39;, system-ui, sans-serif" font-weight="600" font-size="22" letter-spacing="1" fill="#C85B3A">AI</text>
+</svg>

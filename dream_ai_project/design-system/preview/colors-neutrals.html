@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-300); font-family: var(--font-sans); padding: 22px 24px; }
+  .row { display:flex; gap:14px; }
+  .sw { flex:1; }
+  .chip { height:74px; border-radius:14px; box-shadow: var(--shadow-xs); border:1px solid rgba(0,0,0,0.04); }
+  .name { font-size:12px; font-weight:600; color:var(--ink-1); margin-top:9px; letter-spacing:.01em; }
+  .hex { font-size:11px; color:var(--ink-3); margin-top:2px; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--sand-100)"></div><div class="name">sand-100</div><div class="hex">#FBF7F1</div></div>
+    <div class="sw"><div class="chip" style="background:var(--sand-200)"></div><div class="name">sand-200</div><div class="hex">#F6EFE6</div></div>
+    <div class="sw"><div class="chip" style="background:var(--sand-300)"></div><div class="name">sand-300 · bg</div><div class="hex">#EDE8DF</div></div>
+    <div class="sw"><div class="chip" style="background:var(--sand-400)"></div><div class="name">sand-400</div><div class="hex">#E4DCCF</div></div>
+    <div class="sw"><div class="chip" style="background:var(--sand-500)"></div><div class="name">sand-500 · border</div><div class="hex">#D6CBBA</div></div>
+  </div>
+</body>
+</html>

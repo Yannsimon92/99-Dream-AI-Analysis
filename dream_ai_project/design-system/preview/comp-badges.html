@@ -1,0 +1,25 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); padding: 26px; font-family:var(--font-sans); }
+  .wrap { display:flex; flex-wrap:wrap; gap:12px; }
+  .badge { display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:var(--radius-pill);
+           font-size:14px; font-weight:600; }
+  .badge .dot { width:9px; height:9px; border-radius:50%; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge" style="background:var(--dream-nightmare-bg);color:var(--dream-nightmare-ink)"><span class="dot" style="background:var(--dream-nightmare)"></span>Cauchemar</span>
+    <span class="badge" style="background:var(--dream-lucid-bg);color:var(--dream-lucid-ink)"><span class="dot" style="background:var(--dream-lucid)"></span>Lucide</span>
+    <span class="badge" style="background:var(--dream-nostalgic-bg);color:var(--dream-nostalgic-ink)"><span class="dot" style="background:var(--dream-nostalgic)"></span>Nostalgique</span>
+    <span class="badge" style="background:var(--dream-absurd-bg);color:var(--dream-absurd-ink)"><span class="dot" style="background:var(--dream-absurd)"></span>Absurde</span>
+    <span class="badge" style="background:var(--dream-positive-bg);color:var(--dream-positive-ink)"><span class="dot" style="background:var(--dream-positive)"></span>Positif</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--cream);box-sizing:border-box;position:relative;height:220px;overflow:hidden}
+  .grid-bg{position:absolute;inset:0;background-image:var(--grid-dot);background-size:22px 22px;opacity:.5}
+  .lab{position:absolute;left:34px;top:30px;z-index:2}
+  .t1{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink)}
+  .t2{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--ink-50);margin-top:8px;max-width:300px;line-height:1.7}
+</style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="ds-blob" style="width:300px;height:300px;--c:#f0a890;top:-120px;right:-40px;opacity:.5"></div>
+  <div class="ds-blob" style="width:240px;height:240px;--c:#a8c8e8;bottom:-130px;right:140px;opacity:.5"></div>
+  <div class="ds-blob" style="width:180px;height:180px;--c:#c898d0;top:60px;right:280px;opacity:.45"></div>
+  <div class="lab">
+    <div class="t1">Blobs</div>
+    <div class="t2">blur(80px) · opacity 0.35–0.55 · bleed off-screen · max 4 per surface · never carry text</div>
+  </div>
+</body>
+</html>

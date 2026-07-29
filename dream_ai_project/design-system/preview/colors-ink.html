@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); font-family: var(--font-sans); padding: 22px 24px; }
+  .row { display:flex; gap:14px; }
+  .sw { flex:1; }
+  .chip { height:74px; border-radius:14px; box-shadow: var(--shadow-xs); display:flex; align-items:flex-end; padding:8px; }
+  .chip span { font-size:11px; font-weight:600; }
+  .name { font-size:12px; font-weight:600; color:var(--ink-1); margin-top:9px; }
+  .hex { font-size:11px; color:var(--ink-3); margin-top:2px; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:var(--ink-900)"><span style="color:#fff">Aa</span></div><div class="name">ink-1 · 900</div><div class="hex">#2C2622</div></div>
+    <div class="sw"><div class="chip" style="background:var(--ink-700)"><span style="color:#fff">Aa</span></div><div class="name">ink-2 · 700</div><div class="hex">#5C534B</div></div>
+    <div class="sw"><div class="chip" style="background:var(--ink-500)"><span style="color:#fff">Aa</span></div><div class="name">ink-3 · 500</div><div class="hex">#8C8275</div></div>
+    <div class="sw"><div class="chip" style="background:var(--ink-300)"><span style="color:var(--ink-900)">Aa</span></div><div class="name">ink-4 · 300</div><div class="hex">#B9AF9F</div></div>
+  </div>
+</body>
+</html>

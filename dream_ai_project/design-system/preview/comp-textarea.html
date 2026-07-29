@@ -1,0 +1,29 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-300); padding: 26px; font-family:var(--font-sans); }
+  .field { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius-lg);
+           padding:20px 22px; box-shadow:var(--shadow-sm); }
+  .field .ph { font-family:var(--font-display); font-style:italic; font-weight:400; font-size:19px;
+               color:var(--ink-3); line-height:1.5; }
+  .caret { display:inline-block; width:1.5px; height:20px; background:var(--coral-500); vertical-align:-3px; margin-left:1px; animation:blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  .toolbar { display:flex; justify-content:space-between; align-items:center; margin-top:18px; }
+  .count { font-size:12px; color:var(--ink-3); }
+  .focused { border-color:var(--lav-500); box-shadow:0 0 0 4px var(--ring), var(--shadow-md); }
+</style>
+</head>
+<body>
+  <div class="field focused">
+    <div class="ph">Raconte-moi ton rêve, sans filtre…<span class="caret"></span></div>
+    <div class="toolbar">
+      <span class="count">0 / 2000</span>
+    </div>
+  </div>
+</body>
+</html>

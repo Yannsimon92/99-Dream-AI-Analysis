@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--cream);padding:30px 36px;box-sizing:border-box}
+  .row{display:flex;align-items:center;gap:26px}
+  .ic{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#fff;border:0.5px solid var(--ink-12)}
+  .ic svg{width:17px;height:17px;stroke:var(--ink-70);stroke-width:1.5}
+  .spark{font-family:var(--serif);font-size:26px;color:var(--terracotta)}
+  .cap{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-50);margin-top:18px;line-height:1.7;max-width:560px}
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="ic"><i data-lucide="arrow-left"></i></div>
+    <div class="ic"><i data-lucide="search"></i></div>
+    <div class="ic"><i data-lucide="x"></i></div>
+    <div class="ic"><i data-lucide="share-2"></i></div>
+    <div class="ic"><i data-lucide="sliders-horizontal"></i></div>
+    <div class="ic"><i data-lucide="plus"></i></div>
+    <div class="ic"><span class="spark">✦</span></div>
+  </div>
+  <div class="cap">ICONS — Lucide (hairline · rounded caps · ~1.5px · no fill), set in a 34–36px white chip. ✦ sparkle is the one "AI / magic" brand glyph. No emoji, ever.</div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

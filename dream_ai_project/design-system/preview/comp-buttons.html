@@ -1,0 +1,35 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); padding: 28px 26px; font-family:var(--font-sans); }
+  .row { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+  .btn { font-family:var(--font-sans); font-weight:600; font-size:15px; border:none; cursor:pointer;
+         padding:13px 26px; border-radius:var(--radius-pill); transition:all var(--dur-med) var(--ease-dream); }
+  .primary { background:var(--coral-500); color:#fff; box-shadow:var(--shadow-coral); }
+  .primary.hover { background:var(--coral-600); transform:scale(1.035); }
+  .primary.press { background:var(--coral-700); transform:scale(0.97); }
+  .secondary { background:transparent; color:var(--coral-600); border:1.5px solid var(--coral-200); }
+  .ghost { background:var(--lav-100); color:var(--lav-600); }
+  .disabled { background:var(--sand-400); color:var(--ink-4); cursor:not-allowed; }
+  .cap { font-size:10px; color:var(--ink-3); text-align:center; margin-top:7px; letter-spacing:.08em; text-transform:uppercase; }
+  .stack { text-align:center; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="stack"><button class="btn primary">Analyser mon rêve</button><div class="cap">default</div></div>
+    <div class="stack"><button class="btn primary hover">Analyser mon rêve</button><div class="cap">hover</div></div>
+    <div class="stack"><button class="btn primary press">Analyser mon rêve</button><div class="cap">press</div></div>
+  </div>
+  <div class="row" style="margin-top:20px;">
+    <div class="stack"><button class="btn secondary">Réinitialiser</button><div class="cap">secondary</div></div>
+    <div class="stack"><button class="btn ghost">Voir l'historique</button><div class="cap">ghost</div></div>
+    <div class="stack"><button class="btn disabled">Analyser mon rêve</button><div class="cap">disabled</div></div>
+  </div>
+</body>
+</html>

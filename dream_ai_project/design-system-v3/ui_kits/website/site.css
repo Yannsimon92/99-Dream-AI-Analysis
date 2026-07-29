@@ -1,0 +1,290 @@
+/* ============================================================
+   Cartographie des rêves — Website UI kit
+   Requires ../../colors_and_type.css + ../../components.css
+   ============================================================ */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--mono);
+  overflow-x: hidden;
+}
+
+/* page dot grid */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: var(--grid-dot);
+  background-size: var(--grid-size) var(--grid-size);
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+section { position: relative; z-index: 1; }
+
+/* ---------------------------------------------------------------
+   NAV
+--------------------------------------------------------------- */
+.site-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface-strong);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--ink-12);
+}
+.site-nav .inner {
+  max-width: 1180px; margin: 0 auto; padding: 0 32px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.brand .mono-mark {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--blob-peach), var(--blob-lavender));
+  filter: blur(0.3px);
+}
+.brand .word {
+  font-family: var(--serif); font-weight: 300; font-size: 19px;
+  letter-spacing: -0.01em; color: var(--ink);
+}
+.brand .word em { font-style: italic; color: var(--terracotta); }
+.nav-links { display: flex; align-items: center; gap: 30px; }
+.nav-links a {
+  font-family: var(--mono); font-size: 12px; font-weight: 300;
+  letter-spacing: 0.04em; color: var(--ink-70); text-decoration: none;
+  transition: color 0.3s var(--ease);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
+  padding: 9px 20px; border-radius: var(--radius-pill);
+  border: 0.5px solid var(--ink); background: transparent; color: var(--ink);
+  cursor: pointer; transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+.nav-cta:hover { background: var(--ink); color: var(--cream); }
+.menu-btn { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+.menu-btn svg { width: 22px; height: 22px; stroke: var(--ink); stroke-width: 1.5; }
+
+/* mobile drawer */
+.mobile-drawer {
+  display: none;
+  flex-direction: column; gap: 4px;
+  padding: 8px 32px 22px;
+  border-bottom: 0.5px solid var(--ink-12);
+  background: var(--surface-strong);
+  backdrop-filter: blur(20px);
+}
+.mobile-drawer.open { display: flex; }
+.mobile-drawer a {
+  font-family: var(--serif); font-style: italic; font-size: 22px;
+  color: var(--ink); text-decoration: none; padding: 8px 0;
+}
+
+/* ---------------------------------------------------------------
+   HERO
+--------------------------------------------------------------- */
+.hero { padding: 90px 0 100px; overflow: hidden; }
+.hero .container { position: relative; }
+.hero-label { margin-bottom: 22px; }
+.hero h1 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(44px, 7vw, 88px); line-height: 0.98;
+  letter-spacing: -0.02em; margin: 0; max-width: 14ch;
+}
+.hero h1 em { font-style: italic; color: var(--terracotta); }
+.hero .sub {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(17px, 2.2vw, 23px); color: var(--ink-70);
+  margin: 26px 0 0; max-width: 44ch; line-height: 1.45;
+}
+.hero .actions { display: flex; gap: 14px; align-items: center; margin-top: 38px; flex-wrap: wrap; }
+.btn-primary {
+  font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em;
+  padding: 14px 26px; border-radius: var(--radius-pill);
+  background: var(--terracotta); color: var(--cream); border: 0; cursor: pointer;
+  transition: transform 0.25s var(--ease), filter 0.25s var(--ease);
+}
+.btn-primary:hover { filter: brightness(1.06); }
+.btn-primary:active { transform: scale(0.98); }
+.btn-ghost {
+  font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em;
+  padding: 14px 22px; border-radius: var(--radius-pill);
+  background: transparent; color: var(--ink); border: 0.5px solid var(--ink-20); cursor: pointer;
+  transition: border-color 0.25s var(--ease);
+}
+.btn-ghost:hover { border-color: var(--ink); }
+
+/* hero blob cluster (right) */
+.hero-orb {
+  position: absolute; top: 50%; right: -40px; transform: translateY(-50%);
+  width: 460px; height: 460px; pointer-events: none;
+}
+.hero-orb .b {
+  position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.55;
+  animation: drift 14s var(--ease) infinite alternate;
+}
+@keyframes drift { to { transform: translate(18px, -22px) scale(1.06); } }
+
+/* centered hero variant (Tweak) */
+[data-hero-align="center"] .hero .container { text-align: center; }
+[data-hero-align="center"] .hero h1,
+[data-hero-align="center"] .hero .sub { margin-left: auto; margin-right: auto; }
+[data-hero-align="center"] .hero .actions { justify-content: center; }
+[data-hero-align="center"] .hero-orb { right: 50%; transform: translate(50%, -50%); opacity: 0.5; }
+
+/* ---------------------------------------------------------------
+   SECTION HEADER (shared)
+--------------------------------------------------------------- */
+.sec-head { margin-bottom: 44px; }
+.sec-head .lab { margin-bottom: 16px; }
+.sec-head h2 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(32px, 4.6vw, 52px); line-height: 1.04;
+  letter-spacing: -0.01em; margin: 0; max-width: 18ch;
+}
+.sec-head h2 em { font-style: italic; color: var(--terracotta); }
+
+/* ---------------------------------------------------------------
+   PIPELINE
+--------------------------------------------------------------- */
+.pipeline-sec { padding: 80px 0; }
+.pipeline-row {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+  position: relative;
+}
+.pipeline-row .ds-step-blob { width: 96px; height: 96px; }
+.pipeline-row .ds-step-name { font-size: 20px; }
+
+/* ---------------------------------------------------------------
+   GALLERY
+--------------------------------------------------------------- */
+.gallery-sec { padding: 80px 0; }
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+}
+.dream-card {
+  border-radius: var(--radius-card); overflow: hidden;
+  border: 0.5px solid var(--ink-12); background: var(--surface);
+  cursor: pointer; text-align: left; padding: 0;
+  transition: transform 0.35s var(--ease);
+}
+.dream-card:hover { transform: translateY(-4px); }
+.dream-card .thumb {
+  height: 200px; position: relative; overflow: hidden;
+}
+.dream-card .thumb .glow {
+  position: absolute; width: 70%; height: 70%; left: 50%; top: 50%;
+  transform: translate(-50%, -50%); border-radius: 50%; filter: blur(34px); opacity: 0.85;
+  transition: transform 0.6s var(--ease);
+}
+.dream-card:hover .thumb .glow { transform: translate(-50%, -50%) scale(1.12); }
+.dream-card .meta { padding: 16px 18px 18px; }
+.dream-card .meta .title {
+  font-family: var(--serif); font-style: italic; font-size: 19px; font-weight: 300;
+  color: var(--ink); margin: 0 0 10px;
+}
+.dream-card .meta .row { display: flex; align-items: center; justify-content: space-between; }
+.dream-card .meta .author {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--ink-50);
+}
+
+/* ---------------------------------------------------------------
+   MANIFESTO
+--------------------------------------------------------------- */
+.manifesto-sec { padding: 110px 0; }
+.manifesto-sec .container { max-width: 920px; text-align: center; }
+.manifesto-sec .quote {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(28px, 4vw, 46px); line-height: 1.25; letter-spacing: -0.01em;
+  margin: 0;
+}
+.manifesto-sec .quote em { font-style: italic; color: var(--terracotta); }
+.manifesto-sec .by { margin-top: 30px; }
+
+/* ---------------------------------------------------------------
+   FOOTER
+--------------------------------------------------------------- */
+.site-footer { padding: 56px 0 48px; border-top: 0.5px solid var(--ink-12); }
+.site-footer .inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+.site-footer .cols { display: flex; gap: 56px; flex-wrap: wrap; }
+.site-footer .col h4 {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-50); margin: 0 0 14px; font-weight: 400;
+}
+.site-footer .col a {
+  display: block; font-family: var(--mono); font-size: 12px; font-weight: 300;
+  color: var(--ink-70); text-decoration: none; padding: 4px 0;
+}
+.site-footer .col a:hover { color: var(--ink); }
+
+/* ---------------------------------------------------------------
+   DREAM MODAL
+--------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(26, 20, 16, 0.32);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  display: grid; place-items: center; padding: 24px;
+  animation: fadein 0.4s var(--ease);
+}
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  width: min(560px, 100%); background: var(--paper);
+  border: 0.5px solid var(--ink-12); border-radius: 20px; overflow: hidden;
+  position: relative;
+}
+.modal .modal-orb { height: 260px; position: relative; overflow: hidden; }
+.modal .modal-orb .glow {
+  position: absolute; width: 60%; height: 90%; left: 50%; top: 55%;
+  transform: translate(-50%, -50%); border-radius: 50%; filter: blur(40px); opacity: 0.9;
+}
+.modal .close {
+  position: absolute; top: 16px; right: 16px; z-index: 2;
+  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+  background: var(--surface-strong); border: 0.5px solid var(--ink-12);
+  display: grid; place-items: center;
+}
+.modal .close svg { width: 16px; height: 16px; stroke: var(--ink-70); stroke-width: 1.5; }
+.modal .body { padding: 26px 30px 30px; }
+.modal .body h3 {
+  font-family: var(--serif); font-weight: 300; font-style: italic; font-size: 30px;
+  margin: 0 0 6px;
+}
+.modal .body .play {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;
+  padding: 11px 20px; border-radius: var(--radius-pill);
+  border: 0.5px solid var(--ink-20); background: transparent; cursor: pointer;
+  font-family: var(--mono); font-size: 12px; color: var(--ink);
+}
+.modal .play svg { width: 15px; height: 15px; stroke: var(--ink); stroke-width: 1.5; fill: none; }
+.emotion-bars { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+.emotion-bars .eb { display: flex; align-items: center; gap: 12px; }
+.emotion-bars .eb .name {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-70); width: 92px; text-transform: lowercase;
+}
+.emotion-bars .eb .track { flex: 1; height: 6px; border-radius: 3px; background: var(--ink-12); overflow: hidden; }
+.emotion-bars .eb .fill { display: block; height: 100%; border-radius: 3px; }
+.emotion-bars .eb .pct { font-family: var(--mono); font-size: 10px; color: var(--ink-50); width: 34px; text-align: right; }
+
+/* ---------------------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .nav-links, .nav-cta { display: none; }
+  .menu-btn { display: block; }
+  .hero-orb { opacity: 0.7; right: -160px; width: 360px; height: 360px; }
+  .pipeline-row { grid-template-columns: repeat(2, 1fr); gap: 30px 18px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .container, .site-nav .inner { padding-left: 22px; padding-right: 22px; }
+  .hero { padding: 56px 0 70px; }
+  .hero-orb { display: none; }
+  .pipeline-row { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .site-footer .inner { flex-direction: column; align-items: flex-start; }
+}

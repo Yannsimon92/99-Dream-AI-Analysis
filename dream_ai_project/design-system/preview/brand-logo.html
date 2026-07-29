@@ -1,0 +1,28 @@
+<!-- @dsCard group="Brand" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-300); padding: 28px 30px; font-family:var(--font-sans); }
+  .lockup { display:inline-flex; align-items:center; gap:13px; }
+  .mark { width:30px; height:30px; border-radius:50%;
+          background: radial-gradient(circle at 32% 30%, var(--aurora-rose), var(--aurora-violet) 55%, var(--lav-500) 100%);
+          box-shadow: var(--shadow-sm); }
+  .word { font-family:var(--font-display); font-style:italic; font-weight:500; font-size:34px; color:var(--ink-1); letter-spacing:-0.01em; }
+  .word b { font-style:normal; font-weight:600; font-family:var(--font-sans); font-size:26px; color:var(--coral-500); letter-spacing:0.02em; vertical-align:1px; }
+  .variants { display:flex; gap:36px; align-items:center; margin-top:24px; }
+  .onlight { background:var(--surface); padding:14px 18px; border-radius:var(--radius-md); box-shadow:var(--shadow-sm); }
+  .small { transform:scale(.62); transform-origin:left center; }
+</style>
+</head>
+<body>
+  <div class="lockup"><span class="mark"></span><span class="word">Dream <b>AI</b></span></div>
+  <div class="variants">
+    <div class="onlight"><div class="lockup"><span class="mark"></span><span class="word">Dream <b>AI</b></span></div></div>
+    <div class="lockup small"><span class="mark"></span><span class="word">Dream <b>AI</b></span></div>
+  </div>
+</body>
+</html>

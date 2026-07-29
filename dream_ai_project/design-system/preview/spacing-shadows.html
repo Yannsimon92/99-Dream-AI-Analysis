@@ -1,0 +1,25 @@
+<!-- @dsCard group="Spacing" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-300); padding: 30px 26px; font-family:var(--font-sans); }
+  .row { display:flex; gap:22px; justify-content:space-between; }
+  .sw { text-align:center; }
+  .box { width:96px; height:64px; background:var(--surface); border-radius:16px; }
+  .name { font-size:11.5px; font-weight:600; color:var(--ink-1); margin-top:14px; }
+  .desc { font-size:10px; color:var(--ink-3); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="box" style="box-shadow:var(--shadow-sm)"></div><div class="name">shadow-sm</div><div class="desc">lavender tint</div></div>
+    <div class="sw"><div class="box" style="box-shadow:var(--shadow-md)"></div><div class="name">shadow-md</div><div class="desc">card raised</div></div>
+    <div class="sw"><div class="box" style="box-shadow:var(--shadow-lg)"></div><div class="name">shadow-lg</div><div class="desc">modal / focus</div></div>
+    <div class="sw"><div class="box" style="box-shadow:var(--shadow-coral);background:var(--coral-500)"></div><div class="name">shadow-coral</div><div class="desc">CTA glow</div></div>
+  </div>
+</body>
+</html>

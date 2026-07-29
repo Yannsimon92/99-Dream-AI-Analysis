@@ -1,0 +1,40 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-300); padding: 22px; font-family:var(--font-sans); }
+  .row { display:flex; gap:16px; }
+  .card { flex:1; background:var(--surface); border-radius:var(--radius-md); padding:12px; box-shadow:var(--shadow-sm); border:1px solid var(--border-soft); }
+  .thumb { height:96px; border-radius:var(--radius-sm); position:relative; overflow:hidden; }
+  .b { position:absolute; border-radius:50%; filter:blur(14px); opacity:.8; }
+  .title { font-family:var(--font-display); font-style:italic; font-size:16px; color:var(--ink-1); margin:11px 2px 6px; }
+  .meta { display:flex; justify-content:space-between; align-items:center; padding:0 2px; }
+  .sim { font-size:12px; font-weight:600; color:var(--coral-600); }
+  .when { font-size:11px; color:var(--ink-3); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="card">
+      <div class="thumb" style="background:var(--sand-200)">
+        <div class="b" style="width:80px;height:80px;background:var(--aurora-violet);left:-10px;top:10px"></div>
+        <div class="b" style="width:70px;height:70px;background:var(--aurora-rose);right:-6px;bottom:-6px"></div>
+      </div>
+      <div class="title">La maison qui respire</div>
+      <div class="meta"><span class="when">12 mars</span><span class="sim">92% proche</span></div>
+    </div>
+    <div class="card">
+      <div class="thumb" style="background:var(--sand-200)">
+        <div class="b" style="width:84px;height:84px;background:var(--aurora-periwinkle);right:-12px;top:-8px"></div>
+        <div class="b" style="width:60px;height:60px;background:var(--aurora-peach);left:8px;bottom:0"></div>
+      </div>
+      <div class="title">Escalier sans fin</div>
+      <div class="meta"><span class="when">4 févr.</span><span class="sim">87% proche</span></div>
+    </div>
+  </div>
+</body>
+</html>

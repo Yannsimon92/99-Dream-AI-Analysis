@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-300); padding: 22px; font-family:var(--font-sans); }
+  .card { background:var(--surface-rose); border-radius:var(--radius-lg); padding:22px 24px;
+          box-shadow:var(--shadow-md); border:1px solid var(--border-soft); }
+  .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .badge { display:inline-flex; align-items:center; gap:7px; padding:7px 14px; border-radius:var(--radius-pill);
+           font-size:13px; font-weight:600; background:var(--dream-lucid-bg); color:var(--dream-lucid-ink); }
+  .badge .dot { width:8px; height:8px; border-radius:50%; background:var(--dream-lucid); }
+  .conf { font-size:12px; color:var(--ink-3); }
+  .bartrack { height:6px; background:var(--sand-300); border-radius:var(--radius-pill); overflow:hidden; margin:4px 0 16px; }
+  .barfill { height:100%; width:84%; background:linear-gradient(90deg,var(--lav-500),var(--coral-500)); border-radius:var(--radius-pill); }
+  .interp { font-family:var(--font-display); font-style:italic; font-size:18px; line-height:1.5; color:var(--ink-1); }
+  .interp b { font-style:normal; font-family:var(--font-sans); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="top">
+      <span class="badge"><span class="dot"></span>Rêve lucide</span>
+      <span class="conf">confiance · 84%</span>
+    </div>
+    <div class="bartrack"><div class="barfill"></div></div>
+    <div class="interp">Tu sembles chercher un <span class="ds-editorial">contrôle</span> sur une situation qui t'échappe. Le vol récurrent évoque un désir de prise de hauteur.</div>
+  </div>
+</body>
+</html>

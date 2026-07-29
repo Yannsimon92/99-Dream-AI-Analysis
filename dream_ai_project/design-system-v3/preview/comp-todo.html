@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<link rel="stylesheet" href="../components.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--cream);padding:28px 30px;box-sizing:border-box}
+  .ds-todo-icon svg{width:16px;height:16px;stroke:var(--ink-70);stroke-width:1.5}
+</style>
+</head>
+<body>
+  <div class="ds-todo-grid">
+    <div class="ds-todo">
+      <div class="ds-todo-icon"><i data-lucide="moon"></i></div>
+      <div><div class="ds-todo-title">Log a dream</div><div class="ds-todo-desc">capture on waking</div></div>
+    </div>
+    <div class="ds-todo">
+      <div class="ds-todo-icon"><i data-lucide="sparkles"></i></div>
+      <div><div class="ds-todo-title">Run analysis</div><div class="ds-todo-desc">emotion mapping</div></div>
+    </div>
+    <div class="ds-todo">
+      <div class="ds-todo-icon"><i data-lucide="palette"></i></div>
+      <div><div class="ds-todo-title">View blobs</div><div class="ds-todo-desc">colour reading</div></div>
+    </div>
+    <div class="ds-todo">
+      <div class="ds-todo-icon"><i data-lucide="share-2"></i></div>
+      <div><div class="ds-todo-title">Share</div><div class="ds-todo-desc">to your circle</div></div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); padding: 34px 30px; font-family:var(--font-sans); }
+  .pipe { display:flex; align-items:center; }
+  .step { display:flex; flex-direction:column; align-items:center; gap:10px; position:relative; }
+  .node { width:16px; height:16px; border-radius:50%; background:var(--sand-400); border:2px solid var(--sand-500); z-index:2; }
+  .step.done .node { background:var(--coral-500); border-color:var(--coral-500); }
+  .step.active .node { background:#fff; border-color:var(--coral-500); box-shadow:0 0 0 4px var(--coral-100); }
+  .lbl { font-size:12px; color:var(--ink-3); white-space:nowrap; }
+  .step.done .lbl, .step.active .lbl { color:var(--ink-1); font-weight:600; }
+  .link { flex:1; height:2px; background:var(--sand-400); margin:0 -2px; margin-bottom:22px; }
+  .link.done { background:var(--coral-500); }
+</style>
+</head>
+<body>
+  <div class="pipe">
+    <div class="step done"><span class="node"></span><span class="lbl">Saisie</span></div>
+    <div class="link done"></div>
+    <div class="step done"><span class="node"></span><span class="lbl">Embedding</span></div>
+    <div class="link done"></div>
+    <div class="step active"><span class="node"></span><span class="lbl">Classification</span></div>
+    <div class="link"></div>
+    <div class="step"><span class="node"></span><span class="lbl">Interprétation</span></div>
+    <div class="link"></div>
+    <div class="step"><span class="node"></span><span class="lbl">Rêves voisins</span></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); padding: 18px; font-family:var(--font-sans); }
+  .canvas { position:relative; height:200px; background:
+      radial-gradient(circle at 70% 30%, var(--lav-100), transparent 55%),
+      radial-gradient(circle at 25% 75%, var(--coral-100), transparent 55%),
+      var(--surface-2); border-radius:var(--radius-md); border:1px solid var(--border-soft); overflow:hidden; }
+  .ring { position:absolute; border:1px dashed var(--sand-500); border-radius:50%; opacity:.7; }
+  .node { position:absolute; border-radius:50%; box-shadow:var(--shadow-sm); }
+  .node.active { box-shadow:0 0 0 5px #fff, var(--shadow-md); }
+  .label { position:absolute; font-size:11px; font-weight:600; background:var(--surface); padding:4px 9px;
+           border-radius:var(--radius-pill); box-shadow:var(--shadow-sm); color:var(--ink-1); white-space:nowrap; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="ring" style="width:160px;height:160px;left:50%;top:50%;transform:translate(-50%,-50%)"></div>
+    <div class="ring" style="width:90px;height:90px;left:50%;top:50%;transform:translate(-50%,-50%)"></div>
+    <div class="node" style="width:14px;height:14px;background:var(--dream-lucid);left:38%;top:32%"></div>
+    <div class="node" style="width:10px;height:10px;background:var(--dream-positive);left:62%;top:58%"></div>
+    <div class="node" style="width:11px;height:11px;background:var(--dream-absurd);left:30%;top:66%"></div>
+    <div class="node active" style="width:20px;height:20px;background:var(--coral-500);left:52%;top:44%"></div>
+    <div class="label" style="left:56%;top:30%">« Je volais au-dessus de la ville »</div>
+    <div class="node" style="width:9px;height:9px;background:var(--dream-nostalgic);left:74%;top:38%"></div>
+  </div>
+</body>
+</html>

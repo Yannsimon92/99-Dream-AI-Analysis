@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); font-family: var(--font-sans); padding: 22px 24px; position:relative; overflow:hidden; }
+  .row { display:flex; gap:16px; position:relative; z-index:2; }
+  .sw { flex:1; text-align:center; }
+  .orb { height:90px; border-radius:50%; filter:blur(2px); }
+  .name { font-size:12px; font-weight:600; color:var(--ink-1); margin-top:12px; }
+  .hex { font-size:11px; color:var(--ink-3); margin-top:2px; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="orb" style="background:radial-gradient(circle at 35% 30%, #fff6, transparent 60%), var(--aurora-rose)"></div><div class="name">rose</div><div class="hex">#F2B8D0</div></div>
+    <div class="sw"><div class="orb" style="background:radial-gradient(circle at 35% 30%, #fff6, transparent 60%), var(--aurora-violet)"></div><div class="name">violet</div><div class="hex">#C9B6E8</div></div>
+    <div class="sw"><div class="orb" style="background:radial-gradient(circle at 35% 30%, #fff6, transparent 60%), var(--aurora-periwinkle)"></div><div class="name">pervenche</div><div class="hex">#AEC0F2</div></div>
+    <div class="sw"><div class="orb" style="background:radial-gradient(circle at 35% 30%, #fff6, transparent 60%), var(--aurora-peach)"></div><div class="name">peach</div><div class="hex">#F7CFA8</div></div>
+  </div>
+</body>
+</html>

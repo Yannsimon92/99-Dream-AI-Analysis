@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--cream);box-sizing:border-box;position:relative;height:200px;overflow:hidden}
+  .grid-bg{position:absolute;inset:0;background-image:var(--grid-dot);background-size:22px 22px;opacity:.5}
+  .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5}
+  .label{position:absolute;left:34px;bottom:26px;z-index:2}
+  .lt{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-50)}
+  .ld{font-family:var(--mono);font-size:11px;color:var(--ink-70);margin-top:4px}
+</style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="blob" style="width:240px;height:240px;background:#f0a890;top:-90px;right:40px"></div>
+  <div class="blob" style="width:200px;height:200px;background:#a8c8e8;bottom:-100px;left:120px"></div>
+  <div class="label">
+    <div class="lt">Dot grid + blobs</div>
+    <div class="ld">radial 1px · 22px tiles · opacity 0.5 · blur(80px) blobs over cream</div>
+  </div>
+</body>
+</html>

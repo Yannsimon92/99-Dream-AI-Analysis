@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--cream);padding:30px 36px;box-sizing:border-box}
+  .meta{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-50);margin-bottom:18px}
+  .track{position:relative;height:40px}
+  .dot{position:absolute;top:6px;width:14px;height:14px;border-radius:50%;background:var(--terracotta);
+       animation:run 2.4s var(--ease) infinite}
+  @keyframes run{0%{left:0;opacity:0;transform:translateY(14px)}20%{opacity:1;transform:translateY(0)}
+                 80%{left:calc(100% - 14px);opacity:1}100%{left:calc(100% - 14px);opacity:.2}}
+  .cap{font-family:var(--mono);font-size:11px;color:var(--ink-70)}
+</style>
+</head>
+<body>
+  <div class="meta">MOTION · fade-up entrance · stagger 0.1→0.5s</div>
+  <div class="track"><div class="dot"></div></div>
+  <div class="cap">enter 0.7s · nav 0.8s · cubic-bezier(0.4, 0, 0.2, 1) — gentle, no bounce, no spring</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- @dsCard group="Type" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body { margin:0; }
+  body { background: var(--sand-100); padding: 22px 26px; font-family:var(--font-sans); }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .panel { background:var(--surface-2); border-radius:16px; padding:16px 18px; border:1px solid var(--border-soft); }
+  .head { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:10px; }
+  .yes { color:var(--success-text); font-weight:600; }
+  .no  { color:var(--error-text); font-weight:600; }
+  li { font-size:13.5px; color:var(--ink-2); margin:6px 0; line-height:1.45; }
+  ul { margin:0; padding-left:16px; }
+</style>
+</head>
+<body>
+  <div class="cols">
+    <div class="panel">
+      <div class="head"><span class="yes">Serif italic →</span> émotion</div>
+      <ul>
+        <li>Titres éditoriaux H1 · H2</li>
+        <li>Citations de rêves, verbatim</li>
+        <li>Mots d'accent dans une phrase</li>
+        <li>Placeholder poétique de la saisie</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="head"><span class="yes">Sans →</span> interface</div>
+      <ul>
+        <li>H3 · H4, boutons, labels</li>
+        <li>Corps de texte, données, scores</li>
+        <li>Navigation, badges, captions</li>
+        <li>Tout texte &lt; 21px</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
