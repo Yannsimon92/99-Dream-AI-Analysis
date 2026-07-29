@@ -1,0 +1,152 @@
+[
+  {
+    "title": "Since stunt night is approaching, I went to sleep and…",
+    "text": "Since stunt night is approaching, I went to sleep and dreamt that I was going. I went through the stunt, especially my part, and then dreamt about the dance and then breakfast at Haydn Hall. After it was all over (5 a.m.) my boyfriend and sneaked into his frat house and went to sleep on 2 couches. Only we had an argument as to whether we should sleep on the same couch or different ones. I think we necked some too. Then I woke up.",
+    "author": "DreamBank · norms-f",
+    "type": "absurde",
+    "emotion": "neutral",
+    "glow": "radial-gradient(circle, #b8ae9c, #c898d0)",
+    "bars": [
+      [
+        "neutral",
+        69,
+        "#b8ae9c"
+      ],
+      [
+        "surprise",
+        12,
+        "#c898d0"
+      ],
+      [
+        "fear",
+        8,
+        "#5070b0"
+      ]
+    ]
+  },
+  {
+    "title": "Christmas Alone  I'm at an area that seems to be a gas…",
+    "text": "Christmas Alone  I'm at an area that seems to be a gas station. My mom is there, and I talk with her. It is a few weeks before Christmas time. My mom and my sister Ramona are going to Germany, my mom says. I know my dad will be gone as well, so my brother Wally and I will be alone for Christmas.",
+    "author": "DreamBank · kenneth",
+    "type": "lucide",
+    "emotion": "sadness",
+    "glow": "radial-gradient(circle, #7e8fb5, #c898d0)",
+    "bars": [
+      [
+        "sadness",
+        89,
+        "#7e8fb5"
+      ],
+      [
+        "surprise",
+        5,
+        "#c898d0"
+      ],
+      [
+        "neutral",
+        4,
+        "#b8ae9c"
+      ]
+    ]
+  },
+  {
+    "title": "My brother Stuart and my mother were there, and they let me…",
+    "text": "My brother Stuart and my mother were there, and they let me drive.  We were going to drop off Len, the French student in my French class, except I wasn't driving- we were on a tricycle.  I pulled into the court, let him off, and circled around.  I stopped and said something to him in French.  Then we left, and stopped at a pumpkin patch.",
+    "author": "DreamBank · madeline2-dorms",
+    "type": "cauchemar",
+    "emotion": "fear",
+    "glow": "radial-gradient(circle, #5070b0, #b8ae9c)",
+    "bars": [
+      [
+        "fear",
+        46,
+        "#5070b0"
+      ],
+      [
+        "neutral",
+        30,
+        "#b8ae9c"
+      ],
+      [
+        "surprise",
+        9,
+        "#c898d0"
+      ]
+    ]
+  },
+  {
+    "title": "I was in a room with the door ajar",
+    "text": "I was in a room with the door ajar. I saw a woman in another room. And two patients on the ward named Dumbler and Farell were behaving like homosexuals. (In real life I had never seen them act that way, but they often spoke together.)",
+    "author": "DreamBank · norman",
+    "type": "absurde",
+    "emotion": "disgust",
+    "glow": "radial-gradient(circle, #c8d8a0, #5070b0)",
+    "bars": [
+      [
+        "disgust",
+        98,
+        "#c8d8a0"
+      ],
+      [
+        "fear",
+        1,
+        "#5070b0"
+      ],
+      [
+        "neutral",
+        1,
+        "#b8ae9c"
+      ]
+    ]
+  },
+  {
+    "title": "Flood waters all over my living room floor",
+    "text": "Flood waters all over my living room floor. I take a broom and start sweeping it out. A gravel pile builds up on the front porch. Howard is around.",
+    "author": "DreamBank · b",
+    "type": "absurde",
+    "emotion": "disgust",
+    "glow": "radial-gradient(circle, #c8d8a0, #b85040)",
+    "bars": [
+      [
+        "disgust",
+        61,
+        "#c8d8a0"
+      ],
+      [
+        "anger",
+        13,
+        "#b85040"
+      ],
+      [
+        "neutral",
+        12,
+        "#b8ae9c"
+      ]
+    ]
+  },
+  {
+    "title": "I am aware that it is important to let out my anger because…",
+    "text": "I am aware that it is important to let out my anger because that is what's keeping me ill. If I express my anger, then I will become well.",
+    "author": "DreamBank · b",
+    "type": "nostalgique",
+    "emotion": "anger",
+    "glow": "radial-gradient(circle, #b85040, #b8ae9c)",
+    "bars": [
+      [
+        "anger",
+        98,
+        "#b85040"
+      ],
+      [
+        "neutral",
+        1,
+        "#b8ae9c"
+      ],
+      [
+        "sadness",
+        1,
+        "#7e8fb5"
+      ]
+    ]
+  }
+]
