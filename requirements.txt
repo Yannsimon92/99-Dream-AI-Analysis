@@ -1,6 +1,8 @@
 streamlit
 pandas
 numpy
+pyarrow
+huggingface_hub
 transformers
 sentence-transformers
 faiss-cpu
@@ -9,3 +11,4 @@ plotly
 umap-learn
 scikit-learn
 torch
+pytest
