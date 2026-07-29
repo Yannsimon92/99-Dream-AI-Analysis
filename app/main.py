@@ -1,12 +1,22 @@
 """API FastAPI minimale pour l'analyse de rêves."""
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from src.pipeline import analyze_dream
 
-app = FastAPI(title="Projet Rêves API")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Précharge les modèles ML et l'index FAISS au démarrage pour éviter une première requête lente."""
+    analyze_dream("réveil")
+    yield
+
+
+app = FastAPI(title="Projet Rêves API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
