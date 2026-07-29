@@ -1,0 +1,216 @@
+/* ============================================================
+   DREAM AI — Component primitives
+   Requires colors_and_type.css to be loaded first.
+   ============================================================ */
+
+/* ---- BLOB ----------------------------------------------------
+   Organic, blurred decorative shape. Background only — never
+   place text on a blob. Max 4 per slide.
+   Use .ds-blob with a --c color var + size via width/height.    */
+.ds-blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--c, var(--blob-peach));
+  filter: blur(80px);          /* large background blobs        */
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 1;
+}
+.ds-blob.is-inline { filter: blur(12px); opacity: 0.9; }  /* pipeline */
+
+/* ---- TAG / PILL --------------------------------------------- */
+.ds-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: var(--w-light);
+  letter-spacing: 0.09em;
+  text-transform: lowercase;
+  border: 0.5px solid var(--ink-20);
+  background: var(--surface-pill);
+  color: var(--ink-70);
+  white-space: nowrap;
+}
+
+/* ---- CARD --------------------------------------------------- */
+.ds-card {
+  padding: 20px;
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  border: 0.5px solid var(--ink-12);
+  /* intentionally no box-shadow — depth comes from blobs */
+}
+
+/* ---- SECTION BLOCK ------------------------------------------
+   A card with a small colored category label up top.            */
+.ds-section-block { /* extends .ds-card */ }
+.ds-section-block .ds-block-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: var(--w-regular);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
+}
+.ds-block-label.is-supervised   { color: var(--terracotta); }
+.ds-block-label.is-unsupervised { color: var(--blue); }
+.ds-block-label.is-deep         { color: var(--violet); }
+
+/* ---- DIVIDER ------------------------------------------------ */
+.ds-divider {
+  width: 48px;
+  height: 0.5px;
+  background: var(--ink-35);
+  border: 0;
+  margin: 28px 0;
+}
+
+/* ---- DETAIL LIST -------------------------------------------- */
+.ds-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ds-list li {
+  position: relative;
+  padding-left: 18px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: var(--w-light);
+  line-height: 1.8;
+  color: var(--ink-70);
+}
+.ds-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--ink-35);
+}
+.ds-list strong { font-weight: var(--w-medium); color: var(--ink); }
+.ds-list .ds-sublabel {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-50);
+}
+
+/* ---- PIPELINE STEP ------------------------------------------ */
+.ds-pipeline {
+  display: grid;
+  gap: 24px;
+}
+.ds-step { text-align: center; }
+.ds-step .ds-step-num {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--ink-50);
+  display: block;
+  margin-bottom: 14px;
+}
+.ds-step .ds-step-blob {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  filter: blur(12px);
+  opacity: 0.9;
+  margin: 0 auto 18px;
+  background: var(--c, var(--blob-peach));
+}
+.ds-step .ds-step-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  font-weight: var(--w-light);
+  color: var(--ink);
+}
+.ds-step .ds-step-detail {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: var(--w-light);
+  letter-spacing: 0.05em;
+  color: var(--ink-50);
+  margin-top: 6px;
+}
+
+/* ---- MOODBOARD GRID ----------------------------------------- */
+.ds-moodboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 120px;
+  gap: 12px;
+}
+.ds-mood-item {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.ds-mood-item.is-tall { grid-row: span 2; }
+.ds-mood-item .ds-mood-label {
+  position: absolute;
+  left: 12px; bottom: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+}
+
+/* ---- TODO GRID ---------------------------------------------- */
+.ds-todo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.ds-todo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  border: 0.5px solid var(--ink-12);
+}
+.ds-todo .ds-todo-icon {
+  flex: 0 0 36px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  border: 0.5px solid var(--ink-12);
+  display: grid;
+  place-items: center;
+}
+.ds-todo .ds-todo-title {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: var(--w-medium);
+  color: var(--ink);
+}
+.ds-todo .ds-todo-desc {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: var(--w-light);
+  color: var(--ink-50);
+}
+
+/* ============================================================
+   ENTRANCE ANIMATION (stagger)
+   Add .ds-anim to a container; children with .ds-up rise in.
+   ============================================================ */
+@keyframes ds-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ds-up {
+  opacity: 0;
+  animation: ds-fade-up var(--dur-enter) var(--ease) forwards;
+}
+.ds-up.d1 { animation-delay: 0.10s; }
+.ds-up.d2 { animation-delay: 0.20s; }
+.ds-up.d3 { animation-delay: 0.30s; }
+.ds-up.d4 { animation-delay: 0.35s; }
+.ds-up.d5 { animation-delay: 0.40s; }
+.ds-up.d6 { animation-delay: 0.50s; }
