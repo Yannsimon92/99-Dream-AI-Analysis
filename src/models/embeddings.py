@@ -25,7 +25,7 @@ def embed_dream(text: str) -> np.ndarray:
 def embed_dreams(texts: list[str]) -> np.ndarray:
     """Encode une liste de textes en un tableau 2D de shape (len(texts), 384)."""
     model = _get_model()
-    return np.asarray(model.encode(texts))
+    return np.asarray(model.encode(texts, show_progress_bar=True))
 
 
 _index = None
