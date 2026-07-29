@@ -11,7 +11,10 @@ def _get_model():
     if _model is None:
         from transformers import pipeline
 
-        _model = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+        _model = pipeline(
+            "zero-shot-classification",
+            model="valhalla/distilbart-mnli-12-1",
+        )
     return _model
 
 
