@@ -41,7 +41,7 @@ section { position: relative; z-index: 1; }
   height: 64px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.brand { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.brand { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
 .brand .mono-mark {
   width: 28px; height: 28px; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, var(--blob-peach), var(--blob-lavender));

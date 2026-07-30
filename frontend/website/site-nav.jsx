@@ -28,10 +28,10 @@ function Nav({ accent }) {
     <React.Fragment>
       <nav className="site-nav">
         <div className="inner">
-          <div className="brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <a className="brand" href="../desktop-app/index.html">
             <span className="mono-mark" />
             <span className="word">Cartographie <em>des rêves</em></span>
-          </div>
+          </a>
           <div className="nav-links">
             {NAV.map(n => <a key={n.id} href={`#${n.id}`}>{n.label}</a>)}
           </div>
@@ -92,7 +92,7 @@ function Footer({ accent }) {
             <h4>Produit</h4>
             <a href="#pipeline">Le pipeline</a>
             <a href="#galerie">Galerie</a>
-            <a href="#">Web app</a>
+            <a href="../desktop-app/index.html">Web app</a>
           </div>
           <div className="col">
             <h4>À propos</h4>
