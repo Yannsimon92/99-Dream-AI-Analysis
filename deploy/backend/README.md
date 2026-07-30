@@ -1,18 +1,29 @@
----
-title: Projet Reves API
-emoji: 🌙
-colorFrom: purple
-colorTo: pink
-sdk: docker
-app_port: 7860
-pinned: false
----
+# Déploiement du backend (Google Cloud Run)
 
-# Projet Rêves — API
+Le backend n'a plus de dépendance ML lourde (torch/transformers/sentence-transformers) :
+les modèles sont appelés via l'API HF Inference (`huggingface_hub.InferenceClient`)
+au lieu d'être chargés en mémoire. Empreinte mémoire du process : ~140 Mo.
 
-API FastAPI d'analyse de rêves (émotions, type, couleur, rêves similaires) — dataset DreamBank.
+## Prérequis
 
-`POST /analyze` `{"text": "..."}` → `{"type", "emotions", "color", "similar_dreams"}`
-`GET /health`
+- Un token HF (`https://huggingface.co/settings/tokens`, lecture seule suffit)
+- `gcloud` authentifié, projet GCP avec billing actif
 
-Code source complet : https://github.com/Yannsimon92/99-Dream-AI-Analysis
+## Déploiement
+
+Depuis la racine du repo (le contexte de build doit être la racine, pour que
+`COPY app/`, `COPY src/`, `COPY data/processed/` dans le Dockerfile trouvent
+leurs sources) :
+
+```bash
+gcloud run deploy projet-reves-api \
+  --source . \
+  --dockerfile deploy/backend/Dockerfile \
+  --region europe-west1 \
+  --allow-unauthenticated \
+  --memory 512Mi \
+  --set-env-vars HF_TOKEN=<ton-token-hf>
+```
+
+Cloud Run fournit automatiquement la variable `PORT` (gérée dans le `CMD` du
+Dockerfile) et scale à zéro entre les requêtes (pas de coût à l'inactivité).

@@ -5,12 +5,9 @@ pandas
 numpy
 pyarrow
 huggingface_hub
-transformers
-sentence-transformers
 faiss-cpu
 datasets
 plotly
 umap-learn
 scikit-learn
-torch
 pytest

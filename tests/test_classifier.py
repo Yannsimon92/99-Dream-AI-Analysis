@@ -1,11 +1,11 @@
 """Tests unitaires pour src.models.classifier.
 
-Ces tests ne téléchargent jamais le vrai modèle
-`facebook/bart-large-mnli` et ne requièrent pas que `transformers` / `torch`
-soient installés : `_get_model` est monkeypatché pour renvoyer un stub
-callable imitant le comportement d'un pipeline zero-shot-classification
-appelé avec `(text, candidate_labels)`.
+Ces tests n'appellent jamais la vraie API HF Inference : `_get_client` est
+monkeypatché pour renvoyer un stub imitant
+`InferenceClient.zero_shot_classification`.
 """
+
+from types import SimpleNamespace
 
 import pytest
 
@@ -20,27 +20,27 @@ EXPECTED_LABELS = [
 ]
 
 
-class _StubPipeline:
-    """Pipeline factice : retourne les labels/scores dans un ordre différent de CANDIDATE_LABELS."""
+class _StubClient:
+    """Client factice : renvoie les labels/scores dans un ordre différent de CANDIDATE_LABELS."""
 
     def __init__(self) -> None:
         self.calls = 0
         self.last_text: str | None = None
         self.last_labels: list[str] | None = None
 
-    def __call__(self, text, candidate_labels):
+    def zero_shot_classification(self, text, candidate_labels=None, model=None):
         self.calls += 1
         self.last_text = text
         self.last_labels = list(candidate_labels)
         # Ordre volontairement différent de CANDIDATE_LABELS, scores décroissants.
         shuffled = ["absurde", "normal", "cauchemar", "nostalgique", "lucide"]
         scores = [0.5, 0.3, 0.1, 0.07, 0.03]
-        return {"sequence": text, "labels": shuffled, "scores": scores}
+        return [SimpleNamespace(label=lbl, score=score) for lbl, score in zip(shuffled, scores)]
 
 
-def _install_stub(monkeypatch: pytest.MonkeyPatch) -> _StubPipeline:
-    stub = _StubPipeline()
-    monkeypatch.setattr(clf, "_get_model", lambda: stub)
+def _install_stub(monkeypatch: pytest.MonkeyPatch) -> _StubClient:
+    stub = _StubClient()
+    monkeypatch.setattr(clf, "_get_client", lambda: stub)
     return stub
 
 
@@ -59,43 +59,32 @@ def test_classify_dream_type_preserves_label_score_associations(
     stub = _install_stub(monkeypatch)
     text = "un texte de rêve"
     result = clf.classify_dream_type(text)
-    raw = stub(text, clf.CANDIDATE_LABELS)
-    expected = {label: float(score) for label, score in zip(raw["labels"], raw["scores"])}
+    raw = stub.zero_shot_classification(text, candidate_labels=clf.CANDIDATE_LABELS)
+    expected = {r.label: float(r.score) for r in raw}
     assert result == expected
 
 
 @pytest.mark.parametrize("text", ["", "   "])
 def test_classify_dream_type_rejects_blank(text: str, monkeypatch: pytest.MonkeyPatch) -> None:
-    """Les textes vides ou pur-espace lèvent ValueError sans appeler _get_model."""
+    """Les textes vides ou pur-espace lèvent ValueError sans appeler _get_client."""
     stub = _install_stub(monkeypatch)
     with pytest.raises(ValueError):
         clf.classify_dream_type(text)
     assert stub.calls == 0
 
 
-def test_get_model_loaded_only_once(monkeypatch: pytest.MonkeyPatch) -> None:
-    """_get_model ne charge le pipeline qu'une seule fois même après plusieurs appels."""
-    monkeypatch.setattr(clf, "_model", None)
+def test_get_client_created_only_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    """_get_client ne crée le client qu'une seule fois même après plusieurs appels."""
+    monkeypatch.setattr(clf, "_client", None)
 
     calls = {"n": 0}
 
-    class _CountedPipeline:
-        def __init__(self, *args, **kwargs) -> None:
+    class _CountedClient(_StubClient):
+        def __init__(self) -> None:
             calls["n"] += 1
+            super().__init__()
 
-        def __call__(self, text, candidate_labels):
-            return {
-                "sequence": text,
-                "labels": list(candidate_labels),
-                "scores": [0.0] * len(candidate_labels),
-            }
-
-    import sys
-    import types
-
-    fake_mod = types.ModuleType("transformers")
-    fake_mod.pipeline = lambda *a, **kw: _CountedPipeline()
-    monkeypatch.setitem(sys.modules, "transformers", fake_mod)
+    monkeypatch.setattr(clf, "InferenceClient", _CountedClient)
 
     clf.classify_dream_type("rêve un")
     clf.classify_dream_type("rêve deux")

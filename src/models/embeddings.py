@@ -5,34 +5,35 @@ from pathlib import Path
 
 import faiss
 import numpy as np
+from huggingface_hub import InferenceClient
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _INDEX_PATH = _REPO_ROOT / "data" / "processed" / "faiss_index.bin"
 _TEXTS_PATH = _REPO_ROOT / "data" / "processed" / "dream_texts.json"
 
-_model = None
+_EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+
+_client = None
 
 
-def _get_model():
-    """Retourne le SentenceTransformer mis en cache (chargement unique)."""
-    global _model
-    if _model is None:
-        from sentence_transformers import SentenceTransformer
-
-        _model = SentenceTransformer("all-MiniLM-L6-v2")
-    return _model
+def _get_client() -> InferenceClient:
+    """Retourne le client HF Inference mis en cache (instanciation unique)."""
+    global _client
+    if _client is None:
+        _client = InferenceClient()
+    return _client
 
 
 def embed_dream(text: str) -> np.ndarray:
     """Encode un seul texte de rêve en un vecteur 1D de shape (384,)."""
-    model = _get_model()
-    return np.asarray(model.encode(text))
+    client = _get_client()
+    return np.asarray(client.feature_extraction(text, model=_EMBEDDING_MODEL))
 
 
 def embed_dreams(texts: list[str]) -> np.ndarray:
     """Encode une liste de textes en un tableau 2D de shape (len(texts), 384)."""
-    model = _get_model()
-    return np.asarray(model.encode(texts, show_progress_bar=True))
+    client = _get_client()
+    return np.asarray(client.feature_extraction(texts, model=_EMBEDDING_MODEL))
 
 
 _index = None

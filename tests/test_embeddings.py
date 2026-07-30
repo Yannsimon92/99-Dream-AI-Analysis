@@ -1,14 +1,9 @@
 """Tests unitaires pour src.models.embeddings.
 
-Ces tests ne téléchargent jamais le vrai modèle `all-MiniLM-L6-v2` et ne
-requièrent pas que `sentence_transformers` / `torch` soient installés :
-l'import de `src.models.embeddings` est paresseux sur `sentence_transformers`,
-et `_get_model` est monkeypatché ou contourné via un faux module injecté dans
-`sys.modules`.
+Ces tests n'appellent jamais la vraie API HF Inference : `_get_client` est
+monkeypatché pour renvoyer un stub imitant
+`InferenceClient.feature_extraction`.
 """
-
-import sys
-import types
 
 import numpy as np
 import pytest
@@ -16,13 +11,14 @@ import pytest
 import src.models.embeddings as emb
 
 
-class _StubModel:
-    """Modèle factice : encode détermiste basé sur la longueur du texte."""
+class _StubClient:
+    """Client factice : encode déterministe basé sur la longueur du texte."""
 
-    def __init__(self, name: str) -> None:
-        self.name = name
+    def __init__(self) -> None:
+        self.calls = 0
 
-    def encode(self, texts, **kwargs):
+    def feature_extraction(self, texts, model=None):
+        self.calls += 1
         if isinstance(texts, str):
             return np.full(384, float(len(texts)), dtype=np.float32)
         arr = np.zeros((len(texts), 384), dtype=np.float32)
@@ -33,7 +29,7 @@ class _StubModel:
 
 def test_embed_dream_shape(monkeypatch: pytest.MonkeyPatch) -> None:
     """embed_dream retourne un np.ndarray de shape (384,)."""
-    monkeypatch.setattr(emb, "_get_model", lambda: _StubModel("stub"))
+    monkeypatch.setattr(emb, "_get_client", lambda: _StubClient())
     vec = emb.embed_dream("hello world")
     assert isinstance(vec, np.ndarray)
     assert vec.shape == (384,)
@@ -41,27 +37,25 @@ def test_embed_dream_shape(monkeypatch: pytest.MonkeyPatch) -> None:
 
 def test_embed_dreams_shape(monkeypatch: pytest.MonkeyPatch) -> None:
     """embed_dreams retourne un np.ndarray de shape (n, 384)."""
-    monkeypatch.setattr(emb, "_get_model", lambda: _StubModel("stub"))
+    monkeypatch.setattr(emb, "_get_client", lambda: _StubClient())
     texts = ["aaa", "bb", "c"]
     mat = emb.embed_dreams(texts)
     assert isinstance(mat, np.ndarray)
     assert mat.shape == (3, 384)
 
 
-def test_model_loaded_only_once(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Le constructeur sous-jacent n'est appelé qu'une fois (cache de _get_model)."""
-    monkeypatch.setattr(emb, "_model", None)
+def test_client_created_only_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Le client sous-jacent n'est instancié qu'une fois (cache de _get_client)."""
+    monkeypatch.setattr(emb, "_client", None)
 
     calls = {"n": 0}
 
-    class _CountedModel(_StubModel):
-        def __init__(self, name: str) -> None:
+    class _CountedClient(_StubClient):
+        def __init__(self) -> None:
             calls["n"] += 1
-            super().__init__(name)
+            super().__init__()
 
-    fake_mod = types.ModuleType("sentence_transformers")
-    fake_mod.SentenceTransformer = _CountedModel
-    monkeypatch.setitem(sys.modules, "sentence_transformers", fake_mod)
+    monkeypatch.setattr(emb, "InferenceClient", _CountedClient)
 
     emb.embed_dream("x")
     emb.embed_dreams(["a", "b"])
