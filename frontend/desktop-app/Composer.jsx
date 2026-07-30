@@ -7,6 +7,10 @@ function Composer({ value, onChange, onAnalyze, onHistory }) {
       <header className="hdr">
         <Logo />
         <div className="hdr__nav">
+          <a className="btn btn--ghost" href="../website/index.html">
+            <Icon name="info" className="ico" />
+            À propos
+          </a>
           <Button variant="ghost" icon="history" onClick={onHistory}>Historique</Button>
         </div>
       </header>

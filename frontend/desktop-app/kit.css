@@ -48,6 +48,7 @@ body {
   border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 9px;
   padding: 13px 26px; border-radius: var(--radius-pill);
   transition: transform var(--dur-fast) var(--ease-dream), background var(--dur-med) var(--ease-soft), box-shadow var(--dur-med) var(--ease-soft);
+  text-decoration: none;
 }
 .btn:disabled { cursor: not-allowed; background: var(--sand-400); color: var(--ink-4); box-shadow: none; }
 .btn--primary { background: var(--coral-500); color: #fff; box-shadow: var(--shadow-coral); }
