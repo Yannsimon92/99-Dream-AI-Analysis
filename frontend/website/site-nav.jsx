@@ -35,7 +35,7 @@ function Nav({ accent }) {
           <div className="nav-links">
             {NAV.map(n => <a key={n.id} href={`#${n.id}`}>{n.label}</a>)}
           </div>
-          <a className="nav-cta" href="../app/index.html">Analyser un rêve</a>
+          <a className="nav-cta" href="../desktop-app/index.html">Analyser un rêve</a>
           <button className="menu-btn" onClick={() => setOpen(o => !o)} aria-label="menu">
             <Icon name={open ? 'x' : 'menu'} />
           </button>
@@ -43,7 +43,7 @@ function Nav({ accent }) {
       </nav>
       <div className={"mobile-drawer" + (open ? " open" : "")}>
         {NAV.map(n => <a key={n.id} href={`#${n.id}`} onClick={() => setOpen(false)}>{n.label}</a>)}
-        <a href="../app/index.html" onClick={() => setOpen(false)} style={{ color: accent }}>Analyser un rêve →</a>
+        <a href="../desktop-app/index.html" onClick={() => setOpen(false)} style={{ color: accent }}>Analyser un rêve →</a>
       </div>
     </React.Fragment>
   );
@@ -65,8 +65,9 @@ function Hero({ accent }) {
           en une expérience sensorielle — couleur, forme, son.
         </p>
         <div className="actions">
-          <a className="btn-primary" style={{ background: accent }} href="../app/index.html">Analyser un rêve</a>
+          <a className="btn-primary" style={{ background: accent }} href="../desktop-app/index.html">Analyser un rêve</a>
           <a className="btn-ghost" href="#pipeline">Voir comment ça marche</a>
+          <a className="btn-ghost" href="../app/index.html">Voir la maquette mobile</a>
         </div>
       </div>
     </section>
