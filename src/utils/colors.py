@@ -1,13 +1,13 @@
 """Mapping émotion → couleur pour le pipeline de rêves."""
 
 EMOTION_COLORS: dict[str, str] = {
-    "joy": "#e8c870",
-    "sadness": "#7e8fb5",
-    "fear": "#5070b0",
-    "anger": "#b85040",
-    "disgust": "#c8d8a0",
-    "surprise": "#c898d0",
-    "neutral": "#b8ae9c",
+    "joy": "#F7CFA8",
+    "sadness": "#6F5FA6",
+    "fear": "#AEC0F2",
+    "anger": "#A8442A",
+    "disgust": "#5E8467",
+    "surprise": "#C9B6E8",
+    "neutral": "#B9AF9F",
 }
 
 

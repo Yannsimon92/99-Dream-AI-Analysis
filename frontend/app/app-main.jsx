@@ -4,7 +4,7 @@
 const { useState: useState_, useEffect: useEffect_ } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "#b85040",
+  "accent": "#C85B3A",
   "resultVariant": "blobs"
 }/*EDITMODE-END*/;
 
@@ -76,7 +76,7 @@ function AppMain() {
       <TweaksPanel>
         <TweakSection label="Marque" />
         <TweakColor label="Accent" value={t.accent}
-          options={['#b85040', '#5070b0', '#8050a0', '#3f7a63']}
+          options={['#C85B3A', '#9385C0', '#6F5FA6', '#8BA888']}
           onChange={(v) => setTweak('accent', v)} />
         <TweakSection label="Écran résultat" />
         <TweakRadio label="Cartographie" value={t.resultVariant}

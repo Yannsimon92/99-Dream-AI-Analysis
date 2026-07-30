@@ -1,69 +1,68 @@
 /* ============================================================
    DREAM AI — Design System
-   "Cream & Blobs" — editorial · oneiric · luminous
-   Foundations: color + typography tokens
+   Tokens aligned on the desktop-app "Dream AI" palette (sand /
+   ink / coral / lavender / aurora) — same variable names as the
+   original "Cream & Blobs" system so site.css/app.css/components.css
+   don't need to change, only what they resolve to.
    ============================================================
-   Fonts are loaded from Google Fonts. Both families used here
-   (Fraunces, JetBrains Mono) are freely available there — no
-   substitution was needed. To work offline, drop the .woff2
-   files in fonts/ and replace the @import with @font-face.
+   Fonts are loaded from Google Fonts.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
 
 :root {
-  /* ---- Base palette -------------------------------------- */
-  --cream:            #f0ece2;   /* warm cream — primary bg     */
-  --cream-bright:     #e8e4da;   /* luminous beige — bg variant */
-  --paper:            #f6f3ec;   /* lightest paper tint         */
+  /* ---- Base palette (= desktop-app sand tones) ------------ */
+  --cream:            #EDE8DF;   /* = sand-300, primary bg      */
+  --cream-bright:     #F6EFE6;   /* = sand-200                  */
+  --paper:            #FBF7F1;   /* = sand-100                  */
 
-  /* ---- Ink / text ---------------------------------------- */
-  --ink:              #1a1410;             /* near-black brown   */
-  --ink-90:           rgba(26, 20, 16, 0.90);
-  --ink-70:           rgba(26, 20, 16, 0.70);  /* secondary text */
-  --ink-50:           rgba(26, 20, 16, 0.50);  /* tertiary text  */
-  --ink-35:           rgba(26, 20, 16, 0.35);  /* markers        */
-  --ink-20:           rgba(26, 20, 16, 0.20);  /* hairline       */
-  --ink-12:           rgba(26, 20, 16, 0.12);  /* faint border   */
+  /* ---- Ink / text (= desktop-app ink-900) ----------------- */
+  --ink:              #2C2622;
+  --ink-90:           rgba(44, 38, 34, 0.90);
+  --ink-70:           rgba(44, 38, 34, 0.70);
+  --ink-50:           rgba(44, 38, 34, 0.50);
+  --ink-35:           rgba(44, 38, 34, 0.35);
+  --ink-20:           rgba(44, 38, 34, 0.20);
+  --ink-12:           rgba(44, 38, 34, 0.12);
 
-  /* ---- Accents ------------------------------------------- */
-  --terracotta:       #b85040;   /* primary accent — italics    */
-  --blue:             #5070b0;   /* secondary accent            */
-  --violet:           #8050a0;   /* tertiary accent             */
+  /* ---- Accents (= desktop-app coral/lavender) ------------- */
+  --terracotta:       #C85B3A;   /* = coral-500                 */
+  --blue:             #9385C0;   /* = lav-500                   */
+  --violet:           #6F5FA6;   /* = lav-600                   */
 
-  /* ---- Emotion blob palette (desaturated, dreamy) -------- */
-  --blob-peach:       #f0a890;   /* warmth     */
-  --blob-sky:         #a8c8e8;   /* calm       */
-  --blob-yellow:      #e8c870;   /* joy        */
-  --blob-lavender:    #c898d0;   /* mystery    */
-  --blob-sage:        #c8d8a0;   /* serenity   */
-  --blob-coral:       #e8a880;   /* energy     */
+  /* ---- Emotion blob palette (= desktop-app aurora) -------- */
+  --blob-peach:       #F7CFA8;   /* = aurora-peach               */
+  --blob-sky:         #AEC0F2;   /* = aurora-periwinkle          */
+  --blob-yellow:      #F2B8D0;   /* = aurora-rose (no yellow in the new palette) */
+  --blob-lavender:    #C9B6E8;   /* = aurora-violet              */
+  --blob-sage:        #8BA888;   /* = dream-absurd green         */
+  --blob-coral:       #C85B3A;   /* = coral-500                  */
 
-  /* ---- Surfaces ------------------------------------------ */
-  --surface:          rgba(255, 255, 255, 0.50);  /* cards      */
-  --surface-pill:     rgba(255, 255, 255, 0.45);  /* tags       */
-  --surface-strong:   rgba(255, 255, 255, 0.70);  /* nav bar    */
+  /* ---- Surfaces -------------------------------------------- */
+  --surface:          rgba(251, 247, 241, 0.60);
+  --surface-pill:     rgba(251, 247, 241, 0.55);
+  --surface-strong:   rgba(251, 247, 241, 0.80);
 
-  /* ---- Type families ------------------------------------- */
-  --serif:  'Fraunces', 'Times New Roman', serif;
-  --mono:   'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+  /* ---- Type families (= Dream AI fonts) -------------------- */
+  --serif:  'Playfair Display', Georgia, 'Times New Roman', serif;
+  --mono:   'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
-  /* ---- Type scale (px) ----------------------------------- */
-  --t-display:   80px;   /* hero / cover title              */
-  --t-slide:     64px;   /* slide title                     */
-  --t-section:   50px;   /* section header                  */
-  --t-subtitle:  22px;   /* italic subtitle                 */
-  --t-feature:   17px;   /* feature name (italic)           */
-  --t-body:      13px;   /* body copy                       */
-  --t-label:     10px;   /* uppercase category label        */
-  --t-detail:    9px;    /* metadata / slide numbers        */
+  /* ---- Type scale (px) ------------------------------------- */
+  --t-display:   80px;
+  --t-slide:     64px;
+  --t-section:   50px;
+  --t-subtitle:  22px;
+  --t-feature:   17px;
+  --t-body:      13px;
+  --t-label:     10px;
+  --t-detail:    9px;
 
-  /* ---- Weights ------------------------------------------- */
+  /* ---- Weights ----------------------------------------------*/
   --w-light:    300;
   --w-regular:  400;
   --w-medium:   500;
 
-  /* ---- Spacing (8px grid) -------------------------------- */
+  /* ---- Spacing (8px grid) ------------------------------------*/
   --space-xs:   8px;
   --space-sm:   16px;
   --space-md:   24px;
@@ -71,18 +70,18 @@
   --space-xl:   48px;
   --space-2xl:  80px;
 
-  /* ---- Radii --------------------------------------------- */
-  --radius-card:  14px;
-  --radius-pill:  100px;
+  /* ---- Radii -------------------------------------------------*/
+  --radius-card:  16px;
+  --radius-pill:  999px;
   --radius-full:  50%;
 
-  /* ---- Motion -------------------------------------------- */
-  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+  /* ---- Motion (= desktop-app ease-dream) ---------------------*/
+  --ease:        cubic-bezier(0.22, 1, 0.36, 1);
   --dur-enter:   0.7s;
   --dur-nav:     0.8s;
 
-  /* ---- Dot grid background ------------------------------- */
-  --grid-dot:    radial-gradient(circle, rgba(26, 20, 16, 0.12) 1px, transparent 1px);
+  /* ---- Dot grid background ------------------------------------*/
+  --grid-dot:    radial-gradient(circle, rgba(44, 38, 34, 0.12) 1px, transparent 1px);
   --grid-size:   22px;
 }
 
@@ -118,7 +117,7 @@
   color: var(--ink);
 }
 
-/* terracotta italic accent — used inside any serif heading */
+/* accent color inside any serif heading */
 .ds-em {
   font-style: italic;
   color: var(--terracotta);
@@ -153,7 +152,7 @@
   font-family: var(--mono);
   font-size: var(--t-label);
   font-weight: var(--w-regular);
-  letter-spacing: 0.3em;       /* 3px @ 10px */
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--ink-50);
 }

@@ -10,27 +10,6 @@ const STEPS = [
   { n: '05', name: 'Restitution', detail: 'expérience',     c: 'var(--blob-coral)' },
 ];
 
-const DREAMS = [
-  { title: 'Vol au-dessus des toits', author: '@lune_b', emotion: 'joie',
-    glow: 'radial-gradient(circle, #e8c870, #e8a880)',
-    bars: [['joie', 72, '#e8c870'], ['énergie', 40, '#e8a880'], ['calme', 18, '#a8c8e8']] },
-  { title: 'La maison qui respire', author: '@orphée', emotion: 'mystère',
-    glow: 'radial-gradient(circle, #c898d0, #8050a0)',
-    bars: [['mystère', 80, '#c898d0'], ['calme', 30, '#a8c8e8'], ['joie', 12, '#e8c870']] },
-  { title: 'L\'océan silencieux', author: '@maya.r', emotion: 'calme',
-    glow: 'radial-gradient(circle, #a8c8e8, #5070b0)',
-    bars: [['calme', 88, '#a8c8e8'], ['sérénité', 54, '#c8d8a0'], ['mystère', 20, '#c898d0']] },
-  { title: 'Forêt de verre', author: '@sven', emotion: 'sérénité',
-    glow: 'radial-gradient(circle, #c8d8a0, #a8c8e8)',
-    bars: [['sérénité', 76, '#c8d8a0'], ['calme', 44, '#a8c8e8'], ['mystère', 22, '#c898d0']] },
-  { title: 'Course sans fin', author: '@dario', emotion: 'énergie',
-    glow: 'radial-gradient(circle, #e8a880, #f0a890)',
-    bars: [['énergie', 84, '#e8a880'], ['joie', 38, '#e8c870'], ['warmth', 26, '#f0a890']] },
-  { title: 'Le visage flou', author: '@inès.k', emotion: 'mystère',
-    glow: 'radial-gradient(circle, #c898d0, #5070b0)',
-    bars: [['mystère', 70, '#c898d0'], ['calme', 36, '#a8c8e8'], ['énergie', 16, '#e8a880']] },
-];
-
 function Pipeline() {
   return (
     <section id="pipeline" className="pipeline-sec">
@@ -122,4 +101,4 @@ function DreamModal({ dream, onClose }) {
   );
 }
 
-Object.assign(window, { Pipeline, Gallery, Manifesto, DreamModal, DREAMS, STEPS });
+Object.assign(window, { Pipeline, Gallery, Manifesto, DreamModal, STEPS });

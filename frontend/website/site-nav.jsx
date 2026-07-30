@@ -30,7 +30,7 @@ function Nav({ accent }) {
         <div className="inner">
           <a className="brand" href="../desktop-app/index.html">
             <span className="mono-mark" />
-            <span className="word">Cartographie <em>des rêves</em></span>
+            <span className="word">Dream <em>AI</em></span>
           </a>
           <div className="nav-links">
             {NAV.map(n => <a key={n.id} href={`#${n.id}`}>{n.label}</a>)}
@@ -81,7 +81,7 @@ function Footer({ accent }) {
         <div>
           <div className="brand" style={{ marginBottom: 14 }}>
             <span className="mono-mark" />
-            <span className="word">Cartographie <em>des rêves</em></span>
+            <span className="word">Dream <em>AI</em></span>
           </div>
           <div className="ds-detail" style={{ maxWidth: 280, lineHeight: 1.7 }}>
             Une expérience onirique, pas un outil. © 2026

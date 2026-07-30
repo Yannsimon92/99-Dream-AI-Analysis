@@ -25,26 +25,23 @@ function AppIcon({ name, style }) {
   );
 }
 
-// emotion → blob colour
+// emotion → blob colour (les 7 émotions réelles du modèle, palette Dream AI)
 const EMO = {
-  joie:     '#e8c870', calme:    '#a8c8e8', mystère:  '#c898d0',
-  sérénité: '#c8d8a0', énergie:  '#e8a880', warmth:   '#f0a890',
-  peur:     '#5070b0', tristesse:'#7e8fb5',
-  joy: '#e8c870', sadness: '#7e8fb5', fear: '#5070b0',
-  anger: '#b85040', disgust: '#c8d8a0', surprise: '#c898d0', neutral: '#b8ae9c',
+  joy: '#F7CFA8', sadness: '#6F5FA6', fear: '#AEC0F2',
+  anger: '#A8442A', disgust: '#5E8467', surprise: '#C9B6E8', neutral: '#B9AF9F',
 };
 
 const ENTRIES = [
-  { title: 'La maison qui respire', date: '28 mai', emo: 'mystère', dom: 80,
-    bars: [['mystère', 80], ['calme', 34], ['peur', 18]] },
-  { title: 'L\'océan silencieux', date: '26 mai', emo: 'calme', dom: 88,
-    bars: [['calme', 88], ['sérénité', 52], ['mystère', 20]] },
-  { title: 'Forêt de verre', date: '24 mai', emo: 'sérénité', dom: 76,
-    bars: [['sérénité', 76], ['calme', 44], ['joie', 22]] },
-  { title: 'Vol au-dessus des toits', date: '21 mai', emo: 'joie', dom: 72,
-    bars: [['joie', 72], ['énergie', 46], ['calme', 18]] },
-  { title: 'Course sans fin', date: '19 mai', emo: 'énergie', dom: 84,
-    bars: [['énergie', 84], ['warmth', 30], ['peur', 22]] },
+  { title: 'La maison qui respire', date: '28 mai', emo: 'fear', dom: 62,
+    bars: [['fear', 62], ['surprise', 34], ['neutral', 18]] },
+  { title: 'L\'océan silencieux', date: '26 mai', emo: 'neutral', dom: 70,
+    bars: [['neutral', 70], ['joy', 40], ['sadness', 20]] },
+  { title: 'Forêt de verre', date: '24 mai', emo: 'surprise', dom: 58,
+    bars: [['surprise', 58], ['joy', 44], ['fear', 22]] },
+  { title: 'Vol au-dessus des toits', date: '21 mai', emo: 'joy', dom: 72,
+    bars: [['joy', 72], ['surprise', 46], ['neutral', 18]] },
+  { title: 'Course sans fin', date: '19 mai', emo: 'fear', dom: 84,
+    bars: [['fear', 84], ['anger', 30], ['sadness', 22]] },
 ];
 
 const TABS = [
