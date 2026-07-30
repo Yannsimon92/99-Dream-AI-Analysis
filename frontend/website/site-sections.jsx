@@ -164,7 +164,6 @@ function DreamModal({ dream, onClose }) {
               </div>
             ))}
           </div>
-          <button className="play"><Icon name="play" /> Écouter la restitution</button>
         </div>
       </div>
     </div>

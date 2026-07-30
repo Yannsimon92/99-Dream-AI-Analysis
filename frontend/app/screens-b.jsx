@@ -70,10 +70,7 @@ function ResultScreen({ dream, onBack, onPlay, accent, variant, similarDreams })
           </div>
         )}
 
-        <button className="app-cta" style={{ background: accent, marginTop: 22 }} onClick={onPlay}>
-          Écouter la restitution
-        </button>
-        <button className="app-cta ghost" style={{ marginTop: 10 }}>Voir la forme 3D</button>
+        <button className="app-cta ghost" style={{ marginTop: 22 }}>Voir la forme 3D</button>
       </div>
     </div>
   );
