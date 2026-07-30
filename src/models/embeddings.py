@@ -1,7 +1,14 @@
 """Génération d'embeddings pour les textes de rêves (DreamBank)."""
 
+import json
+from pathlib import Path
+
 import faiss
 import numpy as np
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_INDEX_PATH = _REPO_ROOT / "data" / "processed" / "faiss_index.bin"
+_TEXTS_PATH = _REPO_ROOT / "data" / "processed" / "dream_texts.json"
 
 _model = None
 
@@ -33,10 +40,16 @@ _index_texts: list[str] | None = None
 
 
 def _get_index() -> tuple:
-    """Construit et met en cache l'index FAISS sur le corpus DreamBank nettoyé."""
+    """Construit (ou charge depuis le disque) et met en cache l'index FAISS sur le corpus DreamBank nettoyé."""
     global _index, _index_texts
     if _index is not None and _index_texts is not None:
         return _index, _index_texts
+
+    if _INDEX_PATH.exists() and _TEXTS_PATH.exists():
+        _index = faiss.read_index(str(_INDEX_PATH))
+        _index_texts = json.loads(_TEXTS_PATH.read_text(encoding="utf-8"))
+        return _index, _index_texts
+
     from src.data.load import load_dreambank
     from src.data.preprocess import clean_dreams
 
@@ -45,6 +58,11 @@ def _get_index() -> tuple:
     vectors = embed_dreams(texts)
     index = faiss.IndexFlatL2(vectors.shape[1])
     index.add(vectors.astype("float32"))
+
+    _INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
+    faiss.write_index(index, str(_INDEX_PATH))
+    _TEXTS_PATH.write_text(json.dumps(texts, ensure_ascii=False), encoding="utf-8")
+
     _index = index
     _index_texts = texts
     return _index, _index_texts

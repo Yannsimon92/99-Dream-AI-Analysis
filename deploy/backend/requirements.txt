@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pandas
+numpy
+pyarrow
+huggingface_hub
+transformers
+sentence-transformers
+faiss-cpu
