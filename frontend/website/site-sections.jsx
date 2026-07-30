@@ -136,10 +136,10 @@ function Manifesto() {
     <section id="manifeste" className="manifesto-sec">
       <div className="container">
         <p className="quote">
-          Deep inside, you know what you want — <em>let no one decide that for you</em>.
-          Not even your mind.
+          Au fond de toi, tu sais ce que tu veux — <em>ne laisse personne d'autre en décider</em>.
+          Pas même ton esprit.
         </p>
-        <div className="by ds-label">Pour les rêveurs · Keep on dreaming</div>
+        <div className="by ds-label">Pour les rêveurs · Continue de rêver</div>
       </div>
     </section>
   );

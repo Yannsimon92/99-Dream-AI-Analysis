@@ -16,7 +16,7 @@ function HomeScreen({ onCompose, onOpen, accent }) {
         <div className="app-iconbtn"><AppIcon name="sparkle" style={{ stroke: 'none', fill: accent, width: 18, height: 18 }} /></div>
       </div>
       <div className="app-body has-tabbar">
-        <h1 className="app-title" style={{ marginTop: 14 }}>Bonjour, Maya.<br/>Qu'avez-vous <em>rêvé</em> ?</h1>
+        <h1 className="app-title" style={{ marginTop: 14 }}>Bonjour, Maya.<br/>Qu'as-tu <em>rêvé</em> ?</h1>
 
         <div className="home-aura">
           <div className="ring" style={{ width: 210, height: 210 }} />
@@ -66,11 +66,11 @@ function ComposeScreen({ onBack, onAnalyse, accent, error }) {
       </div>
       <div className="app-body" style={{ display: 'flex', flexDirection: 'column' }}>
         <div className="app-label" style={{ marginTop: 6 }}>Au réveil</div>
-        <textarea className="compose-field" value={text} onChange={(e) => setText(e.target.value)} placeholder="Racontez votre rêve, librement…" />
+        <textarea className="compose-field" value={text} onChange={(e) => setText(e.target.value)} placeholder="Raconte ton rêve, librement…" />
         <div className="compose-tools" style={{ margin: '10px 0 18px' }}>
           <div className="app-iconbtn"><AppIcon name="mic" /></div>
           <div className="app-iconbtn"><AppIcon name="keyboard" /></div>
-          <span className="app-label" style={{ marginLeft: 4 }}>ou dictez à voix haute</span>
+          <span className="app-label" style={{ marginLeft: 4 }}>ou dicte à voix haute</span>
         </div>
         {error && <div style={{ color: "var(--terracotta)", fontSize: 13, marginBottom: 8 }}>{error}</div>}
         <button className="app-cta" style={{ background: accent, opacity: text.trim() ? 1 : 0.5 }} disabled={!text.trim()} onClick={() => { if (text.trim()) onAnalyse(text); }}>

@@ -21,7 +21,7 @@ function ResultScreen({ dream, onBack, onPlay, accent, variant, similarDreams })
         <div className="app-iconbtn"><AppIcon name="share" /></div>
       </div>
       <div className="app-body has-tabbar" style={{ paddingTop: 12 }}>
-        <div className="app-label">{d.date} · votre rêve</div>
+        <div className="app-label">{d.date} · ton rêve</div>
         <h1 className="app-title" style={{ marginTop: 8, fontSize: 26 }}>{d.title}</h1>
 
         {variant === 'bars' ? (
@@ -69,8 +69,6 @@ function ResultScreen({ dream, onBack, onPlay, accent, variant, similarDreams })
             ))}
           </div>
         )}
-
-        <button className="app-cta ghost" style={{ marginTop: 22 }}>Voir la forme 3D</button>
       </div>
     </div>
   );
@@ -124,7 +122,7 @@ function JournalScreen({ onOpen, accent }) {
         <div className="app-iconbtn"><AppIcon name="sparkle" style={{ stroke: 'none', fill: accent, width: 18, height: 18 }} /></div>
       </div>
       <div className="app-body has-tabbar">
-        <h1 className="app-title" style={{ marginTop: 10, marginBottom: 18 }}>Vos <em>rêves</em></h1>
+        <h1 className="app-title" style={{ marginTop: 10, marginBottom: 18 }}>Tes <em>rêves</em></h1>
         <div className="journal-month">Mai 2026 · {ENTRIES.length} rêves</div>
         {ENTRIES.map((e, i) => (
           <div className="journal-item" key={i} onClick={() => onOpen(e)}>
