@@ -71,7 +71,7 @@ function HistoryView({ onBack }) {
         <div className="hdr__nav"><Button variant="ghost" icon="arrow-left" onClick={onBack}>Retour</Button></div>
       </header>
       <h2 className="hero__title" style={{ fontSize: 40, margin: '28px 0 6px' }}>Tes rêves récents</h2>
-      <div className="section-label">7 derniers jours</div>
+      <div className="section-label">Derniers rêves</div>
       <div className="histlist">
         {NEIGHBOURS.concat([{ title: 'Le jardin sous la pluie', when: 'hier', type: 'positive' }]).map((d, i) => (
           <div className="histitem" key={i}>
