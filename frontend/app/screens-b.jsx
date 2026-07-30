@@ -167,12 +167,20 @@ function ProfilScreen({ accent }) {
         </div>
 
         <div style={{ marginTop: 18, textAlign: 'left' }}>
-          {['Rappels du matin', 'Confidentialité', 'Exporter mes rêves', 'À propos'].map((t, i) => (
-            <div className="recent-row" key={i} style={{ justifyContent: 'space-between' }}>
-              <span style={{ fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 300, color: 'var(--ink)' }}>{t}</span>
-              <AppIcon name="back" style={{ width: 15, height: 15, stroke: 'var(--ink-35)', transform: 'rotate(180deg)' }} />
-            </div>
-          ))}
+          {[
+            { label: 'Rappels du matin' },
+            { label: 'Confidentialité' },
+            { label: 'Exporter mes rêves' },
+            { label: 'À propos', href: '../website/index.html' },
+          ].map((row, i) => {
+            const Tag = row.href ? 'a' : 'div';
+            return (
+              <Tag className="recent-row" key={i} href={row.href} style={{ justifyContent: 'space-between' }}>
+                <span style={{ fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 300, color: 'var(--ink)' }}>{row.label}</span>
+                <AppIcon name="back" style={{ width: 15, height: 15, stroke: 'var(--ink-35)', transform: 'rotate(180deg)' }} />
+              </Tag>
+            );
+          })}
         </div>
       </div>
     </div>

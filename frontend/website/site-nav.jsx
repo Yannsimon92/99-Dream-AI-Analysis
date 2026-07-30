@@ -92,7 +92,7 @@ function Footer({ accent }) {
             <h4>Produit</h4>
             <a href="#pipeline">Le pipeline</a>
             <a href="#galerie">Galerie</a>
-            <a href="../desktop-app/index.html">Web app</a>
+            <a href="../desktop-app/index.html">Analyser un rêve</a>
           </div>
           <div className="col">
             <h4>À propos</h4>

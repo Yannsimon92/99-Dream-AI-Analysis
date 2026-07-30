@@ -8,7 +8,7 @@ const DREAM_TYPES = {
   lucid:      { label: 'Rêve lucide', color: 'var(--dream-lucid)',      bg: 'var(--dream-lucid-bg)',      ink: 'var(--dream-lucid-ink)' },
   nostalgic:  { label: 'Nostalgique', color: 'var(--dream-nostalgic)',  bg: 'var(--dream-nostalgic-bg)',  ink: 'var(--dream-nostalgic-ink)' },
   absurd:     { label: 'Absurde',     color: 'var(--dream-absurd)',     bg: 'var(--dream-absurd-bg)',     ink: 'var(--dream-absurd-ink)' },
-  positive:   { label: 'Positif',     color: 'var(--dream-positive)',   bg: 'var(--dream-positive-bg)',   ink: 'var(--dream-positive-ink)' },
+  positive:   { label: 'Normal',      color: 'var(--dream-positive)',   bg: 'var(--dream-positive-bg)',   ink: 'var(--dream-positive-ink)' },
 };
 
 const AURORA = ['var(--aurora-rose)', 'var(--aurora-violet)', 'var(--aurora-periwinkle)', 'var(--aurora-peach)'];

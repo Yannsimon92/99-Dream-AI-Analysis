@@ -91,7 +91,7 @@
 .home-aura .feel .pct { font-family: var(--mono); font-size: 10px; color: var(--ink-50); margin-top: 2px; }
 
 .recent-row { display: flex; align-items: center; gap: 14px; padding: 12px 0;
-  border-top: 0.5px solid var(--ink-12); cursor: pointer; }
+  border-top: 0.5px solid var(--ink-12); cursor: pointer; text-decoration: none; }
 .recent-row .mini { width: 38px; height: 38px; border-radius: 50%; filter: blur(6px); flex: 0 0 38px; }
 .recent-row .t { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink); }
 .recent-row .d { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--ink-50); margin-top: 2px; }

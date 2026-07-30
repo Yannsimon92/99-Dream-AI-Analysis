@@ -14,7 +14,6 @@ function SimilarCard({ dream }) {
       <div className="simcard__title">{dream.title}</div>
       <div className="simcard__meta">
         <span className="simcard__when">{dream.when}</span>
-        <span className="simcard__sim">{dream.sim}% proche</span>
       </div>
     </div>
   );

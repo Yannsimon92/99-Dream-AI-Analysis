@@ -14,10 +14,9 @@ const INTERPS = {
   lucid: ['Tu sembles chercher un ', 'contrôle', " sur une situation qui t'échappe — le vol évoque un désir de prise de hauteur."],
   nostalgic: ['Le rêve te ramène vers un ', 'lieu sûr', ', et ses espaces familiers qui se transforment disent un deuil doux du passé.'],
   absurd: ['La logique se relâche pour laisser passer une ', 'vérité oblique', " que l'absurde protège autant qu'il révèle."],
-  positive: ['Une ', 'légèreté', ' traverse la scène : le rêve consolide un sentiment de sécurité retrouvé.'],
+  positive: ['Rien ne s\'y ', 'détache', " particulièrement : ce rêve n'a pas assez de relief pour rentrer dans les autres catégories."],
 };
 
-const SIM_LABELS = [95, 90, 85, 80, 75];
 const BLOB_PAIRS = [['rose', 'violet'], ['periwinkle', 'peach'], ['violet', 'rose'], ['peach', 'periwinkle'], ['rose', 'periwinkle']];
 
 /* Appelle la vraie API d'analyse et met la réponse en forme pour l'UI du kit. */
@@ -45,7 +44,6 @@ async function analyzeReal(text) {
   const neighbours = (data.similar_dreams || []).map((t, i) => ({
     title: t.length > 60 ? t.slice(0, 60) + '…' : t,
     when: 'DreamBank',
-    sim: SIM_LABELS[i] || 70,
     blobs: BLOB_PAIRS[i % BLOB_PAIRS.length],
   }));
 

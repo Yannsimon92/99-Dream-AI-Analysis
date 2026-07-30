@@ -5,7 +5,7 @@ function AnalysisResult({ result }) {
     <div className="card fade-in">
       <div className="result__top">
         <DreamBadge type={result.type} />
-        <span className="result__conf">confiance · {result.confidence}%</span>
+        <span className="result__conf">émotion dominante · {result.confidence}%</span>
       </div>
       <div className="bartrack">
         <div className="barfill" style={{ width: result.confidence + '%' }} />
