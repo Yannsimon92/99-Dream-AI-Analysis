@@ -10,6 +10,76 @@ const STEPS = [
   { n: '05', name: 'Restitution', detail: 'expérience',     c: 'var(--blob-coral)' },
 ];
 
+const STORY = [
+  {
+    n: '01',
+    t: 'Un corpus, pas une idée en l\'air',
+    p: 'Le projet est né pendant un bootcamp Data Science du Wagon, autour d\'une question simple : peut-on transformer le texte brut d\'un rêve en quelque chose de sensible — un type, une émotion, une couleur ? Le point de départ a été DreamBank, un corpus de recherche de plus de 22 000 récits de rêves rassemblés depuis 1897 par des chercheurs de UC Santa Cruz.',
+  },
+  {
+    n: '02',
+    t: 'Un pipeline construit couche par couche',
+    p: 'Le nettoyage et l\'exploration du dataset sont venus en premier, puis des embeddings sémantiques pour situer chaque rêve dans un espace vectoriel, une classification zero-shot pour identifier son type, et une détection d\'émotions pour en capter la tonalité. Chaque brique a été testée et mesurée avant de passer à la suivante.',
+  },
+  {
+    n: '03',
+    t: 'Le local a montré ses limites',
+    p: 'Faire tourner trois modèles en mémoire a vite posé un problème très concret : plusieurs gigaoctets de RAM, un frein réel pour un déploiement léger. Le pipeline a été repensé pour appeler les modèles via une API d\'inférence plutôt que de les charger localement — l\'empreinte du service est passée de 1,6 Go à environ 140 Mo.',
+  },
+  {
+    n: '04',
+    t: 'Trois interfaces, une seule voix',
+    p: 'Une maquette mobile, une application desktop et ce site ont vu le jour en parallèle, avant d\'être unifiés sous une identité visuelle et un vocabulaire communs. Ce que vous voyez ici est la version actuelle d\'un projet qui continue de s\'affiner.',
+  },
+];
+
+function Story() {
+  return (
+    <section id="histoire" className="pipeline-sec">
+      <div className="container">
+        <div className="sec-head">
+          <div className="lab ds-label">Histoire</div>
+          <h2>Comment le projet a <em>pris forme</em>.</h2>
+        </div>
+        <div style={{ display: 'grid', gap: 36, maxWidth: 760 }}>
+          {STORY.map(s => (
+            <div key={s.n} style={{ display: 'flex', gap: 20 }}>
+              <span className="ds-label" style={{ color: 'var(--terracotta)', flexShrink: 0 }}>{s.n}</span>
+              <div>
+                <h3 className="ds-feature" style={{ fontSize: 19, marginBottom: 8 }}>{s.t}</h3>
+                <p className="ds-body" style={{ maxWidth: '62ch' }}>{s.p}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DatasetCallout() {
+  return (
+    <section className="pipeline-sec" style={{ paddingTop: 0 }}>
+      <div className="container">
+        <a href="dataset-analysis.html" className="hl-card" style={{
+          display: 'block', textDecoration: 'none', color: 'inherit',
+          border: '1px solid var(--ink-12)', borderRadius: 'var(--radius-card)',
+          padding: '32px 36px', background: 'var(--surface)',
+        }}>
+          <div className="lab ds-label" style={{ marginBottom: 10 }}>Les données derrière le projet</div>
+          <h3 className="ds-feature" style={{ fontSize: 22, marginBottom: 8 }}>
+            22 400 rêves, 90 séries, un siècle de collecte — explorez le dataset DreamBank →
+          </h3>
+          <p className="ds-body">
+            Statistiques, qualité des données, séries de rêveurs à prioriser : le détail complet
+            de l'analyse qui a précédé la construction du pipeline.
+          </p>
+        </a>
+      </div>
+    </section>
+  );
+}
+
 function Pipeline() {
   return (
     <section id="pipeline" className="pipeline-sec">
@@ -39,7 +109,7 @@ function Gallery({ onOpen, dreams }) {
       <div className="container">
         <div className="sec-head">
           <div className="lab ds-label">Galerie</div>
-          <h2>Explorez les rêves de la <em>communauté</em>.</h2>
+          <h2>Le pipeline, appliqué à de <em>vrais</em> rêves.</h2>
         </div>
         {(!dreams || dreams.length === 0) && <p className="ds-label" style={{ marginBottom: 20 }}>Chargement des rêves...</p>}
         <div className="gallery-grid">
@@ -101,4 +171,4 @@ function DreamModal({ dream, onClose }) {
   );
 }
 
-Object.assign(window, { Pipeline, Gallery, Manifesto, DreamModal, STEPS });
+Object.assign(window, { Story, DatasetCallout, Pipeline, Gallery, Manifesto, DreamModal, STEPS });

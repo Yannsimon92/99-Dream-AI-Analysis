@@ -29,6 +29,8 @@ function App() {
     <div data-hero-align={t.heroAlign}>
       <Nav accent={t.accent} />
       <Hero accent={t.accent} />
+      <Story />
+      <DatasetCallout />
       <Pipeline />
       <Gallery onOpen={setDream} dreams={dreams} />
       <Manifesto />

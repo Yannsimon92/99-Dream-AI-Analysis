@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamBank Dataset — Analyse Dream AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+/* ─── TOKENS ─── */
+:root {
+  /* Dream AI palette (aligné sur frontend/desktop-app) */
+  --cream:       #EDE8DF;
+  --cream-dark:  #E4DCCF;
+  --ink:         #2C2622;
+  --ink-muted:   #5C534B;
+  --ink-ghost:   #8C8275;
+  --terra:       #C85B3A;
+  --terra-light: #EFC9B840;
+  --sage:        #5E8467;
+  --lavender:    #6F5FA6;
+  --gold:        #C98B3E;
+  --blue:        #7E97D6;
+  --dot-color:   #2C262240;
+  --radius:      12px;
+  --radius-lg:   20px;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.6;
+  /* dot-grid background — the signature */
+  background-image: radial-gradient(circle, var(--dot-color) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  min-height: 100vh;
+}
+
+/* ─── LAYOUT ─── */
+.page { max-width: 1100px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+/* ─── BLOBS (ambient) ─── */
+.blob-bg {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); opacity: .18;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+.blob-1 { width: 500px; height: 500px; background: var(--terra); top: -120px; right: -100px; animation-duration: 22s; }
+.blob-2 { width: 400px; height: 400px; background: var(--lavender); bottom: 20%; left: -120px; animation-duration: 28s; animation-delay: -8s; }
+.blob-3 { width: 300px; height: 300px; background: var(--gold); top: 50%; right: 10%; animation-duration: 19s; animation-delay: -14s; }
+@keyframes drift {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.08); }
+}
+
+/* ─── Z-INDEX WRAPPER ─── */
+.content { position: relative; z-index: 1; }
+
+/* ─── HEADER ─── */
+header {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--cream-dark);
+  margin-bottom: 3rem;
+}
+.eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--terra); margin-bottom: 1rem;
+}
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 300; line-height: 1.1;
+  color: var(--ink); margin-bottom: .75rem;
+}
+h1 em { font-style: italic; color: var(--terra); }
+.header-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; color: var(--ink-ghost); margin-top: .5rem;
+}
+.source-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--cream-dark); border: 1px solid #d8d4ca;
+  border-radius: 999px; padding: 4px 12px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--ink-muted);
+  margin-top: 1.25rem;
+}
+.source-chip::before { content: '⬡'; color: var(--terra); }
+
+/* ─── SECTION TITLES ─── */
+.section { margin-bottom: 3.5rem; }
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-ghost); margin-bottom: .5rem;
+}
+h2 {
+  font-size: 1.6rem; font-weight: 400; margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+h2 em { font-style: italic; color: var(--terra); }
+
+/* ─── KPI GRID ─── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem; margin-bottom: 2rem;
+}
+.kpi {
+  background: #fffefb;
+  border: 1px solid #dedad2;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+.kpi-val {
+  font-size: 2rem; font-weight: 300; color: var(--ink);
+  line-height: 1;
+}
+.kpi-val span { font-size: 1.1rem; color: var(--terra); }
+.kpi-lbl { font-size: 12px; color: var(--ink-muted); margin-top: .3rem; }
+.kpi-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: var(--ink-ghost); margin-top: .15rem; }
+
+/* ─── COLUMNS SCHEMA ─── */
+.schema-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: .75rem; margin-bottom: 1.5rem; }
+.schema-card {
+  background: #fffefb; border: 1px solid #dedad2; border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+}
+.schema-card.primary { border-color: var(--terra); background: #fff9f8; }
+.schema-name {
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  color: var(--ink); margin-bottom: .3rem;
+}
+.schema-card.primary .schema-name { color: var(--terra); }
+.schema-type {
+  display: inline-block; font-family: 'DM Sans', sans-serif;
+  font-size: 10px; background: var(--cream-dark); border-radius: 4px;
+  padding: 1px 6px; color: var(--ink-muted); margin-bottom: .5rem;
+}
+.schema-desc { font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
+
+/* ─── CHART CARDS ─── */
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+@media (max-width: 700px) { .chart-grid { grid-template-columns: 1fr; } }
+.chart-card {
+  background: #fffefb; border: 1px solid #dedad2; border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+.chart-title {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  color: var(--ink-muted); letter-spacing: .06em; text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.chart-wrap { position: relative; height: 200px; }
+
+/* ─── GENDER BAR ─── */
+.gender-bar-wrap { margin: .75rem 0 1rem; }
+.gender-bar {
+  display: flex; height: 28px; border-radius: 8px; overflow: hidden;
+  border: 1px solid #dedad2;
+}
+.gender-seg {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+  color: #fff;
+}
+.gender-seg.m { background: var(--blue); }
+.gender-seg.f { background: var(--terra); }
+.gender-seg.mix { background: var(--sage); }
+.gender-legend { display: flex; gap: 1rem; margin-top: .5rem; flex-wrap: wrap; }
+.gender-legend-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; color: var(--ink-muted);
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* ─── SERIES TABLE ─── */
+.table-controls {
+  display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1rem; align-items: center;
+}
+.filter-pill {
+  background: var(--cream-dark); border: 1px solid #dedad2;
+  border-radius: 999px; padding: 5px 14px;
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  color: var(--ink-muted); cursor: pointer; transition: all .15s;
+}
+.filter-pill:hover { border-color: var(--terra); color: var(--terra); }
+.filter-pill.active { background: var(--terra); border-color: var(--terra); color: #fff; }
+.search-box {
+  flex: 1; min-width: 180px;
+  background: #fffefb; border: 1px solid #dedad2; border-radius: 999px;
+  padding: 6px 14px; font-size: 13px; color: var(--ink);
+  font-family: 'Playfair Display', serif;
+}
+.search-box:focus { outline: none; border-color: var(--terra); }
+.search-box::placeholder { color: var(--ink-ghost); }
+.result-count {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  color: var(--ink-ghost); margin-bottom: .5rem;
+}
+.table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid #dedad2; }
+table { width: 100%; border-collapse: collapse; background: #fffefb; }
+thead { border-bottom: 1px solid #dedad2; }
+th {
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink-ghost); font-weight: 500;
+  padding: .75rem 1rem; text-align: left; white-space: nowrap; cursor: pointer;
+  user-select: none;
+}
+th:hover { color: var(--ink-muted); }
+th.sorted { color: var(--terra); }
+td { padding: .75rem 1rem; border-bottom: 1px solid #f0ece240; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--cream); }
+.s-name { font-weight: 400; color: var(--ink); font-size: 14px; }
+.s-sub { font-family: 'DM Sans', sans-serif; font-size: 10px; color: var(--ink-ghost); margin-top: 1px; }
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 999px;
+  font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500;
+}
+.badge-f { background: #fceae8; color: var(--terra); }
+.badge-m { background: #e8eff8; color: var(--blue); }
+.badge-mix { background: #e8f0eb; color: var(--sage); }
+.badge-de { background: #f0eaf8; color: var(--lavender); margin-left: 4px; }
+.vol-cell { display: flex; align-items: center; gap: 8px; }
+.vol-bar { width: 60px; height: 5px; background: var(--cream-dark); border-radius: 3px; flex-shrink: 0; }
+.vol-fill { height: 100%; background: var(--terra); border-radius: 3px; }
+.vol-num {
+  font-family: 'DM Sans', sans-serif; font-size: 12px;
+  color: var(--ink); font-weight: 500; white-space: nowrap;
+}
+.interest-text { font-size: 12px; color: var(--ink-muted); max-width: 280px; line-height: 1.4; }
+.cat-pill {
+  display: inline-block; font-family: 'DM Sans', sans-serif; font-size: 10px;
+  border: 1px solid #dedad2; border-radius: 4px; padding: 1px 6px;
+  color: var(--ink-ghost); white-space: nowrap;
+}
+
+/* ─── INSIGHT BOXES ─── */
+.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+@media (max-width: 640px) { .insight-grid { grid-template-columns: 1fr; } }
+.insight {
+  border-radius: var(--radius); padding: 1.1rem 1.25rem;
+  font-size: 13px; line-height: 1.6;
+}
+.insight.pro { background: #edf4f0; border-left: 3px solid var(--sage); color: #2a4035; }
+.insight.con { background: #fdf0ee; border-left: 3px solid var(--terra); color: #4a2820; }
+.insight strong { display: block; font-size: 12px; font-family: 'DM Sans', sans-serif; letter-spacing: .05em; margin-bottom: .4rem; }
+.insight ul { padding-left: 1rem; }
+.insight ul li { margin-bottom: .25rem; }
+
+/* ─── HIGHLIGHT SERIES ─── */
+.highlight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+.hl-card {
+  background: #fffefb; border: 1px solid #dedad2; border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  transition: border-color .2s;
+}
+.hl-card:hover { border-color: var(--terra); }
+.hl-tag {
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+  color: var(--terra); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .4rem;
+}
+.hl-name { font-size: 1rem; font-weight: 400; color: var(--ink); margin-bottom: .4rem; }
+.hl-meta {
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  color: var(--ink-ghost); margin-bottom: .6rem;
+}
+.hl-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--cream-dark); padding-top: 2rem;
+  font-family: 'DM Sans', sans-serif; font-size: 11px;
+  color: var(--ink-ghost); display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+}
+footer a { color: var(--terra); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- ambient blobs -->
+<div class="blob-bg" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<div class="page">
+<div class="content">
+
+<!-- ── HEADER ── -->
+<header>
+  <a href="index.html" style="font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);text-decoration:none;display:inline-block;margin-bottom:1.5rem">← Retour à propos</a>
+  <p class="eyebrow">Dream AI · Analyse du dataset</p>
+  <h1><em>DreamBank</em><br>dreams-en</h1>
+  <p class="header-sub">DReAMy-lib · Apache 2.0 · Hugging Face</p>
+  <div>
+    <span class="source-chip">DreamBank.net · Schneider &amp; Domhoff · UC Santa Cruz</span>
+    <span class="source-chip" style="margin-left:.5rem">Scrapé via DreamScrape · mattbierner</span>
+  </div>
+</header>
+
+<!-- ── SECTION 1: KPIs ── -->
+<section class="section">
+  <p class="section-label">01 — Vue d'ensemble</p>
+  <h2>Le <em>corpus</em> en un coup d'œil</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-val">22<span>k</span></div>
+      <div class="kpi-lbl">Récits de rêves</div>
+      <div class="kpi-sub">Uniquement en anglais</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">90</div>
+      <div class="kpi-lbl">Séries distinctes</div>
+      <div class="kpi-sub">69 dans le dataset HF</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">5</div>
+      <div class="kpi-lbl">Colonnes</div>
+      <div class="kpi-sub">series · dreams · gender · year · description</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">1897</div>
+      <div class="kpi-lbl">Rêve le plus ancien</div>
+      <div class="kpi-sub">The Physiologist</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">2026</div>
+      <div class="kpi-lbl">Entrée la plus récente</div>
+      <div class="kpi-sub">Hazel — toujours en cours</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val">Parquet</div>
+      <div class="kpi-lbl">Format</div>
+      <div class="kpi-sub">compatible pandas</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 2: SCHEMA ── -->
+<section class="section">
+  <p class="section-label">02 — Schéma</p>
+  <h2><em>Structure</em> du dataset</h2>
+  <div class="schema-grid">
+    <div class="schema-card">
+      <div class="schema-name">series</div>
+      <span class="schema-type">string</span>
+      <p class="schema-desc">Identifiant du rêveur (ex. "david", "izzy"). 69 valeurs uniques. Clé de regroupement principale.</p>
+    </div>
+    <div class="schema-card primary">
+      <div class="schema-name">dreams ★</div>
+      <span class="schema-type">string</span>
+      <p class="schema-desc">Texte brut du rêve. 5 à ~23 000 caractères. Cible principale pour le NLP — longueur très variable.</p>
+    </div>
+    <div class="schema-card">
+      <div class="schema-name">gender</div>
+      <span class="schema-type">string</span>
+      <p class="schema-desc">"male" / "female". Déséquilibre démographique à prendre en compte (~62% masculin).</p>
+    </div>
+    <div class="schema-card">
+      <div class="schema-name">year</div>
+      <span class="schema-type">string</span>
+      <p class="schema-desc">Décennie ou plage (ex. "1990-1999"). 55 valeurs distinctes. Utile pour le filtrage temporel.</p>
+    </div>
+    <div class="schema-card">
+      <div class="schema-name">description</div>
+      <span class="schema-type">string</span>
+      <p class="schema-desc">Libellé narratif du rêveur (ex. "David: teenage dreams"). Répété pour chaque entrée.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 3: CHARTS ── -->
+<section class="section">
+  <p class="section-label">03 — Distributions</p>
+  <h2><em>Patterns</em> du contenu</h2>
+
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-title">Distribution des longueurs de rêves (mots)</div>
+      <div class="chart-wrap">
+        <canvas id="lenChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Volume par décennie</div>
+      <div class="chart-wrap">
+        <canvas id="yearChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Genre -->
+  <div class="chart-card">
+    <div class="chart-title">Répartition par genre</div>
+    <div class="gender-bar-wrap">
+      <div class="gender-bar">
+        <div class="gender-seg m" style="flex:.62">masculin · 62%</div>
+        <div class="gender-seg f" style="flex:.38">féminin · 38%</div>
+      </div>
+    </div>
+    <div class="gender-legend">
+      <div class="gender-legend-item"><div class="dot" style="background:var(--blue)"></div>Rêveurs masculins — majorité du corpus</div>
+      <div class="gender-legend-item"><div class="dot" style="background:var(--terra)"></div>Rêveuses féminines — sous-représentées</div>
+      <div class="gender-legend-item"><div class="dot" style="background:var(--sage)"></div>Mixte / groupes — Péruviens, Italiens, Miami lab</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 4: QUALITY ── -->
+<section class="section">
+  <p class="section-label">04 — Qualité des données</p>
+  <h2>Atouts &amp; <em>limites</em></h2>
+  <div class="insight-grid">
+    <div class="insight pro">
+      <strong>✓ Atouts</strong>
+      <ul>
+        <li>22 400 textes — suffisant pour embeddings &amp; clustering</li>
+        <li>Licence Apache 2.0 — usage et redistribution libres</li>
+        <li>Métadonnées : gender + year + series</li>
+        <li>Textes longs → riches sémantiquement pour le NLP</li>
+        <li>Format Parquet → chargement rapide avec pandas</li>
+        <li>DreamBank académiquement reconnu (Domhoff, UC Santa Cruz)</li>
+        <li>Séries longitudinalees → modélisation individuelle possible</li>
+      </ul>
+    </div>
+    <div class="insight con">
+      <strong>⚠ Limites à documenter</strong>
+      <ul>
+        <li>Pas de labels émotionnels — à générer via zero-shot</li>
+        <li>Pas de labels "cauchemar" / "lucide" natifs</li>
+        <li>Déséquilibre de genre (62% masculin)</li>
+        <li>Longueur très variable → stratégie de troncature nécessaire</li>
+        <li>Uniquement en anglais — anglophone + US cultural bias</li>
+        <li>Données auto-rapportées — pas de vérification physiologique</li>
+        <li>Rêves courts (&lt;20 mots) souvent du bruit</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 5: HIGHLIGHT SERIES ── -->
+<section class="section">
+  <p class="section-label">05 — Séries clés</p>
+  <h2>Séries à <em>prioriser</em></h2>
+  <div class="highlight-grid">
+    <div class="hl-card">
+      <div class="hl-tag">★ La plus étudiée</div>
+      <div class="hl-name">Barb Sanders</div>
+      <div class="hl-meta">F · 1960–1997 · 3,116 dreams</div>
+      <p class="hl-desc">La série de référence. Interviews de la rêveuse disponibles. Analyses publiées par Domhoff. Étalon-or pour la validation.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-tag">★ Longitudinalese</div>
+      <div class="hl-name">Izzy</div>
+      <div class="hl-meta">F · 2003–2016 · 4,329 dreams</div>
+      <p class="hl-desc">La plus longue série individuelle en anglais. De 12 à 25 ans — idéale pour l'analyse développementale et la modélisation de l'arc émotionnel.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-tag">★ Rêves lucides</div>
+      <div class="hl-name">Jeff</div>
+      <div class="hl-meta">M · 2000 · 87 dreams</div>
+      <p class="hl-desc">Le seul rêveur lucide explicitement étiqueté du dataset. Essentiel pour entraîner un classifieur de rêves lucides.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-tag">★ Trauma / PTSD</div>
+      <div class="hl-name">Vietnam Veteran</div>
+      <div class="hl-meta">M · 1970–2017 · 593 dreams</div>
+      <p class="hl-desc">45 ans de rêves liés à la guerre sur trois périodes. Idéal pour la modélisation de l'arc émotionnel dans le temps.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-tag">★ Historique</div>
+      <div class="hl-name">Dorothea</div>
+      <div class="hl-meta">F · 1912–1965 · 900 dreams</div>
+      <p class="hl-desc">53 ans de rêves couvrant deux guerres mondiales. La couverture temporelle la plus rare du corpus.</p>
+    </div>
+    <div class="hl-card">
+      <div class="hl-tag">★ Cross-culturel</div>
+      <div class="hl-name">Peruvian M + F</div>
+      <div class="hl-meta">M+F · 1970 · 766 dreams</div>
+      <p class="hl-desc">Seul corpus non occidental du dataset. Permet la comparaison interculturelle des thèmes oniriques et émotionnels.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 6: FULL TABLE ── -->
+<section class="section">
+  <p class="section-label">06 — Catalogue complet</p>
+  <h2>Toutes les <em>séries</em></h2>
+
+  <div class="table-controls">
+    <button class="filter-pill active" onclick="setFilter('all',this)">Toutes</button>
+    <button class="filter-pill" onclick="setFilter('female',this)">Femmes</button>
+    <button class="filter-pill" onclick="setFilter('male',this)">Hommes</button>
+    <button class="filter-pill" onclick="setFilter('longitudinale',this)">Longitudinales</button>
+    <button class="filter-pill" onclick="setFilter('group',this)">Groupes</button>
+    <button class="filter-pill" onclick="setFilter('special',this)">Profils spéciaux</button>
+    <button class="filter-pill" onclick="setFilter('old',this)">Avant 1960</button>
+    <input class="search-box" type="text" placeholder="Rechercher une série…" id="searchInput" oninput="applyFilters()">
+  </div>
+  <div class="result-count" id="resultCount"></div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th onclick="sortBy('name')" id="th-name">Série</th>
+          <th onclick="sortBy('gender')" id="th-gender">Genre</th>
+          <th onclick="sortBy('y1')" id="th-y1">Période</th>
+          <th onclick="sortBy('count')" id="th-count" class="sorted">Volume ↓</th>
+          <th>Type</th>
+          <th>Intérêt clé</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span>Dream AI · Le Wagon Data Science Bootcamp · 2025</span>
+  <span>
+    Source : <a href="https://huggingface.co/datasets/DReAMy-lib/DreamBank-dreams-en" target="_blank">HuggingFace</a> ·
+    <a href="https://dreambank.net" target="_blank">DreamBank.net</a> ·
+    Domhoff &amp; Schneider · UC Santa Cruz
+  </span>
+</footer>
+
+</div><!-- /content -->
+</div><!-- /page -->
+
+<script>
+// ── CHARTS ──
+const C = {
+  ink: '#2C2622', muted: '#5C534B', ghost: '#8C8275',
+  terra: '#C85B3A', sage: '#5E8467', lav: '#6F5FA6',
+  gold: '#C98B3E', blue: '#7E97D6', cream: '#E4DCCF'
+};
+
+function chartDefaults() {
+  return {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: C.ghost, font: { size: 11 } }, grid: { color: '#dedad240' }, border: { color: '#dedad2' } },
+      y: { ticks: { color: C.ghost, font: { size: 11 } }, grid: { color: '#dedad240' }, border: { color: '#dedad2' } }
+    }
+  };
+}
+
+new Chart(document.getElementById('lenChart'), {
+  type: 'bar',
+  data: {
+    labels: ['1–50','51–100','101–200','201–400','401–800','801–2k','2k+'],
+    datasets: [{
+      data: [2200, 5800, 6200, 4100, 2500, 1200, 400],
+      backgroundColor: [C.terra+'33',C.terra+'55',C.terra+'88',C.terra+'bb',C.terra+'cc',C.terra+'aa',C.terra+'66'],
+      borderColor: C.terra, borderWidth: 0, borderRadius: 5
+    }]
+  },
+  options: { ...chartDefaults() }
+});
+
+new Chart(document.getElementById('yearChart'), {
+  type: 'bar',
+  data: {
+    labels: ['<1970','années 70','années 80','années 90','années 2000','années 2010'],
+    datasets: [{
+      data: [400, 1800, 4200, 7500, 6200, 2300],
+      backgroundColor: [C.lav, C.blue, C.sage, C.terra, C.gold, C.muted].map(c => c + 'bb'),
+      borderWidth: 0, borderRadius: 5
+    }]
+  },
+  options: { ...chartDefaults() }
+});
+
+// ── TABLE DATA ──
+const SERIES = [
+  {name:"Izzy (all)",sub:"",gender:"female",y1:2003,y2:2016,count:4329,cat:"longitudinale",interest:"Plus longue série individuelle · de 12 à 25 ans · arc développemental"},
+  {name:"Detlev von Uslar",sub:"auf Deutsch",gender:"male",y1:1949,y2:2001,count:6100,cat:"special",interest:"6 100 rêves en allemand d'un professeur de philosophie suisse — série la plus volumineuse"},
+  {name:"Barb Sanders",sub:"",gender:"female",y1:1960,y2:1997,count:3116,cat:"longitudinale",interest:"Série la plus étudiée — interviews disponibles, analyses publiées par Domhoff"},
+  {name:"Kenneth",sub:"",gender:"male",y1:1996,y2:1998,count:2022,cat:"individuelle",interest:"2 022 rêves sur 2 ans — très haute densité de collecte"},
+  {name:"Elizabeth",sub:"a woman in her 40s",gender:"female",y1:1999,y2:2020,count:1707,cat:"longitudinale",interest:"Collecte continue depuis 1999 — mère célibataire, riche contexte biographique"},
+  {name:"Barb Sanders #2",sub:"post-awareness",gender:"female",y1:1997,y2:2001,count:1138,cat:"longitudinale",interest:"Barb Sanders après avoir su être étudiée — permet de tester le biais d'observation"},
+  {name:"Norman",sub:"⚠ sensitive",gender:"male",y1:1963,y2:1967,count:1235,cat:"special",interest:"Profil psychologique extrême — utilisé dans des études sur la continuité rêve-comportement"},
+  {name:"Emma: 48 years",sub:"",gender:"female",y1:1949,y2:1997,count:1221,cat:"longitudinale",interest:"48 ans de rêves d'une même femme — unique pour l'analyse sur toute une vie"},
+  {name:"Pegasus",sub:"a factory worker",gender:"male",y1:1949,y2:1964,count:1093,cat:"individuelle",interest:"Ouvrier américain des années 50 — contexte socioculturel rare dans la recherche onirique"},
+  {name:"Izzy, age 18-21",sub:"",gender:"female",y1:2009,y2:2013,count:1359,cat:"longitudinale",interest:"Sous-série d'Izzy — transition lycée → université"},
+  {name:"Dorothea: 53 years",sub:"",gender:"female",y1:1912,y2:1965,count:900,cat:"longitudinale",interest:"1912–1965 — traverse deux guerres mondiales et la Grande Dépression. Couverture la plus rare"},
+  {name:"College women, late 1940s",sub:"",gender:"female",y1:1946,y2:1950,count:681,cat:"group",interest:"Collection originale de Calvin Hall — base des normes Hall/VdC"},
+  {name:"Hall/VdC Norms: Femmes",sub:"",gender:"female",y1:1940,y2:1950,count:490,cat:"group",interest:"Échantillon normé féminin Hall/Van de Castle — étalon-or pour comparaisons"},
+  {name:"Hall/VdC Norms: Hommes",sub:"",gender:"male",y1:1940,y2:1950,count:491,cat:"group",interest:"Échantillon normé masculin Hall/Van de Castle — étalon-or pour comparaisons"},
+  {name:"Izzy, age 16",sub:"",gender:"female",y1:2007,y2:2008,count:845,cat:"longitudinale",interest:"Année la plus prolifique d'Izzy — 845 rêves en 12 mois"},
+  {name:"Jasmine (all)",sub:"",gender:"female",y1:1999,y2:2011,count:625,cat:"longitudinale",interest:"École primaire à l'université — trajectoire comparable à Izzy"},
+  {name:"Izzy, age 17",sub:"",gender:"female",y1:2008,y2:2009,count:741,cat:"longitudinale",interest:"Sous-série d'Izzy à 17 ans"},
+  {name:"German dreams (F)",sub:"auf Deutsch",gender:"female",y1:1990,y2:1999,count:397,cat:"group",interest:"Rêves de femmes allemandes — rare comparaison interculturelle avec les données américaines"},
+  {name:"Peruvian men",sub:"",gender:"male",y1:1970,y2:1970,count:384,cat:"group",interest:"Seul corpus non occidental du dataset — contraste culturel majeur"},
+  {name:"Peruvian women",sub:"",gender:"female",y1:1970,y2:1970,count:382,cat:"group",interest:"Corpus de femmes péruviennes — permet une analyse interculturelle du genre"},
+  {name:"Alta",sub:"a detailed dreamer",gender:"female",y1:1985,y2:1997,count:422,cat:"individuelle",interest:"Rêves très détaillés — peu étudié, potentiel non exploité"},
+  {name:"Izzy, age 15",sub:"",gender:"female",y1:2006,y2:2007,count:539,cat:"longitudinale",interest:"Sous-série d'Izzy à 15 ans"},
+  {name:"Merri",sub:"an artist",gender:"female",y1:1999,y2:2000,count:315,cat:"individuelle",interest:"Rêves d'une artiste — thèmes visuels et créatifs attendus"},
+  {name:"Vietnam Vet: 2016-17",sub:"",gender:"male",y1:2016,y2:2017,count:463,cat:"special",interest:"463 rêves — suivi longitudinal du PTSD sur 45 ans"},
+  {name:"Madeline 3",sub:"Off-Campus",gender:"female",y1:2001,y2:2003,count:348,cat:"longitudinale",interest:"Troisième phase — vie hors campus"},
+  {name:"Madeline 4",sub:"After College",gender:"female",y1:2003,y2:2004,count:294,cat:"longitudinale",interest:"Transition vers la vie adulte post-diplôme"},
+  {name:"Izzy, age 22-25",sub:"",gender:"female",y1:2013,y2:2016,count:377,cat:"longitudinale",interest:"Izzy adulte — fin de l'arc longitudinal"},
+  {name:"Barb Sanders: baseline",sub:"",gender:"female",y1:1960,y2:1997,count:250,cat:"group",interest:"Échantillon représentatif de 250 rêves codés Hall/VdC — référence pour comparer les méthodes"},
+  {name:"Bay Area girls: Gr. 4-6",sub:"",gender:"female",y1:1996,y2:1997,count:234,cat:"group",interest:"Seul corpus d'enfants de 9-12 ans avec codage Hall/VdC complet"},
+  {name:"Bea 1",sub:"high school student",gender:"female",y1:2003,y2:2005,count:223,cat:"individuelle",interest:"Codé Hall/VdC — rare pour une adolescente. Très détaillé."},
+  {name:"The Natural Scientist",sub:"",gender:"male",y1:1939,y2:1939,count:234,cat:"individuelle",interest:"234 rêves en 1939 — juste avant la Seconde Guerre mondiale"},
+  {name:"Phil 2: late 20s",sub:"",gender:"male",y1:1971,y2:1971,count:220,cat:"longitudinale",interest:"Phil dans la trentaine — comparable aux ados (Phil 1) et à la retraite (Phil 3)"},
+  {name:"Phil 3: retirement",sub:"",gender:"male",y1:2004,y2:2004,count:180,cat:"longitudinale",interest:"Phil à la retraite — rare série masculine multigénérationnelle"},
+  {name:"Melora",sub:"Melvin's wife",gender:"female",y1:1962,y2:1962,count:211,cat:"individuelle",interest:"Rêves recueillis en même temps que son mari — comparaison de couple unique"},
+  {name:"Lawrence",sub:"a young man",gender:"male",y1:2009,y2:2009,count:206,cat:"individuelle",interest:"206 rêves en un an — bonne densité pour un jeune homme"},
+  {name:"David",sub:"teenage dreams",gender:"male",y1:1990,y2:1999,count:166,cat:"individuelle",interest:"Visible dans le viewer HuggingFace — rêves d'ado des années 90 avec culture pop marquée"},
+  {name:"Bay Area girls: Gr. 7-9",sub:"",gender:"female",y1:1996,y2:1997,count:154,cat:"group",interest:"Même école, filles plus âgées entrant au collège"},
+  {name:"College students (F) 97-98",sub:"",gender:"female",y1:1997,y2:1998,count:160,cat:"group",interest:"Femmes de fac côte Est — comparaison avec les normes des années 40"},
+  {name:"College students (M) 97-98",sub:"",gender:"male",y1:1997,y2:1998,count:160,cat:"group",interest:"Hommes de fac côte Est"},
+  {name:"Swiss children (F)",sub:"auf Deutsch",gender:"female",y1:1989,y2:1995,count:164,cat:"group",interest:"Filles suisses en allemand — interculturel et développemental"},
+  {name:"Izzy, age 13",sub:"",gender:"female",y1:2004,y2:2005,count:167,cat:"longitudinale",interest:"Sous-série d'Izzy à 13 ans"},
+  {name:"Swiss children (M)",sub:"auf Deutsch",gender:"male",y1:1989,y2:1995,count:135,cat:"group",interest:"Pendant masculin suisse"},
+  {name:"German dreams (M)",sub:"auf Deutsch",gender:"male",y1:1990,y2:1999,count:140,cat:"group",interest:"Rêves d'hommes allemands — rares données masculines interculturelles"},
+  {name:"Blind dreamers (F)",sub:"",gender:"female",y1:1995,y2:1995,count:238,cat:"special",interest:"Rêves de femmes aveugles — auditif et tactile plutôt que visuel"},
+  {name:"Blind dreamers (M)",sub:"",gender:"male",y1:1995,y2:1995,count:143,cat:"special",interest:"Pendant masculin des rêveuses aveugles"},
+  {name:"Miami Home-Lab (combined)",sub:"Home + Lab",gender:"male",y1:1963,y2:1965,count:445,cat:"special",interest:"Même rêveur en laboratoire de sommeil ET à domicile — compare rêves lab vs naturels"},
+  {name:"Italian REM & NREM",sub:"English",gender:"mixed",y1:2000,y2:2010,count:74,cat:"special",interest:"Seule série comparant explicitement REM vs NREM — valeur neuroscientifique"},
+  {name:"Jasmine 3: college 1",sub:"",gender:"female",y1:2003,y2:2006,count:261,cat:"longitudinale",interest:"Jasmine en première année de fac"},
+  {name:"Jasmine 2: high school",sub:"",gender:"female",y1:2001,y2:2003,count:268,cat:"longitudinale",interest:"Jasmine au lycée"},
+  {name:"Midwest teenagers (F)",sub:"",gender:"female",y1:1998,y2:1998,count:111,cat:"group",interest:"Ados du Midwest — comparaison géographique avec Bay Area"},
+  {name:"Midwest teenagers (M)",sub:"",gender:"male",y1:1998,y2:1998,count:83,cat:"group",interest:"Rares données de groupe masculin adolescent"},
+  {name:"Sally: a forester",sub:"",gender:"female",y1:1983,y2:2009,count:249,cat:"individuelle",interest:"26 ans — thèmes nature et profession dans les rêves"},
+  {name:"Madeline 1: High School",sub:"",gender:"female",y1:1997,y2:2000,count:98,cat:"longitudinale",interest:"Phase lycée de Madeline — début de la série longitudinale"},
+  {name:"Jeff: a lucid dreamer",sub:"",gender:"male",y1:2000,y2:2000,count:87,cat:"special",interest:"Seul rêveur lucide explicitement étiqueté — clé pour la classification des rêves lucides"},
+  {name:"Esther",sub:"an adolescent girl",gender:"female",y1:1998,y2:1998,count:110,cat:"individuelle",interest:"110 rêves d'une adolescente en 1998"},
+  {name:"Phil 1: teens",sub:"",gender:"male",y1:1957,y2:1959,count:106,cat:"longitudinale",interest:"Phil adolescent à la fin des années 50 — contexte culturel historique"},
+  {name:"Chris: a transvestite",sub:"",gender:"male",y1:1968,y2:1968,count:100,cat:"special",interest:"Homme d'affaires et travesti des années 60 — identité de genre dans les rêves"},
+  {name:"Melissa: a young girl",sub:"",gender:"female",y1:1998,y2:2000,count:89,cat:"individuelle",interest:"Petite fille — données enfants très rares"},
+  {name:"West Coast teenage girls",sub:"",gender:"female",y1:1995,y2:1995,count:89,cat:"group",interest:"Ados de la côte Ouest — comparaison avec le groupe Midwest"},
+  {name:"The Physiologist",sub:"",gender:"male",y1:1897,y2:1918,count:86,cat:"individuelle",interest:"Le plus ancien corpus : 1897–1918. Rêves d'un physiologiste victorien."},
+  {name:"UCSC women, 1996",sub:"",gender:"female",y1:1996,y2:1996,count:81,cat:"group",interest:"Femmes d'UC Santa Cruz — étudiantes de Domhoff lui-même"},
+  {name:"Izzy, age 12",sub:"",gender:"female",y1:2003,y2:2004,count:52,cat:"longitudinale",interest:"Izzy à 12 ans — tous premiers rêves enregistrés"},
+  {name:"Seventh grade girls",sub:"",gender:"female",y1:1996,y2:1996,count:69,cat:"group",interest:"Filles de 5e — groupe intermédiaire Bay Area"},
+  {name:"Ed: dreams of his late wife",sub:"",gender:"male",y1:1980,y2:2002,count:143,cat:"special",interest:"22 ans de rêves sur sa femme décédée — deuil et mémoire onirique"},
+  {name:"Melvin",sub:"Melora's husband",gender:"male",y1:1962,y2:1962,count:128,cat:"individuelle",interest:"Rêves simultanés avec son épouse Melora — étude de couple unique"},
+  {name:"Chuck: a physical scientist",sub:"",gender:"male",y1:1991,y2:1993,count:75,cat:"individuelle",interest:"Un chercheur en sciences dures qui tient un journal de rêves — profil atypique"},
+  {name:"Vietnam Vet: 1970-2008",sub:"",gender:"male",y1:1970,y2:2008,count:98,cat:"special",interest:"38 ans de rêves liés à la guerre — PTSD sur toute une vie"},
+  {name:"Hazel",sub:"",gender:"female",y1:1964,y2:2026,count:188,cat:"individuelle",interest:"Toujours active en 2026 — la seule série contemporaine encore en cours"},
+  {name:"Bea 2: college student",sub:"",gender:"female",y1:2007,y2:2010,count:63,cat:"longitudinale",interest:"Bea à la fac — compare avec ses rêves de lycée"},
+  {name:"Jasmine 4: college 2",sub:"",gender:"female",y1:2010,y2:2011,count:96,cat:"longitudinale",interest:"Jasmine fin de parcours universitaire"},
+  {name:"Samantha: in her 20s",sub:"",gender:"female",y1:1992,y2:1999,count:63,cat:"individuelle",interest:"Femme dans la vingtaine sur 7 ans"},
+  {name:"Emma's Husband",sub:"",gender:"male",y1:1940,y2:1998,count:72,cat:"individuelle",interest:"Pendant masculin d'Emma — couple aux journaux parallèles"},
+  {name:"Joan: a lesbian",sub:"",gender:"female",y1:1985,y2:1985,count:42,cat:"special",interest:"Seule série explicitement lesbienne — rares dans la recherche onirique"},
+  {name:"Wedding dreams",sub:"",gender:"female",y1:1940,y2:1999,count:65,cat:"group",interest:"Corpus thématique de rêves de mariage sur 50 ans — étude d'un motif symbolique"},
+  {name:"Nancy",sub:"Caring & headstrong",gender:"female",y1:1997,y2:1997,count:44,cat:"individuelle",interest:"Analysé en aveugle par des étudiants — validation méthodologique"},
+  {name:"Van: a video gamer",sub:"",gender:"male",y1:2007,y2:2015,count:192,cat:"special",interest:"Rêves d'un gamer — thèmes numériques attendus, corpus moderne"},
+  {name:"Robert Bosnak",sub:"dream analyst",gender:"male",y1:2000,y2:2010,count:53,cat:"special",interest:"Un analyste de rêves qui enregistre les siens — méta-réflexif"},
+  {name:"Betty: a college student",sub:"",gender:"female",y1:1993,y2:1993,count:28,cat:"individuelle",interest:"28 rêves + déclaration autobiographique — idéal pour la validation de méthode"},
+  {name:"Vietnam Vet: 2015",sub:"",gender:"male",y1:2015,y2:2015,count:32,cat:"special",interest:"Instantané 2015 — fait le lien entre les séries 1970-2008 et 2016-17"},
+  {name:"Mack: a poor recaller",sub:"",gender:"male",y1:1999,y2:1999,count:38,cat:"special",interest:"Sujet avec mauvaise mémoire des rêves — étude de la mémoire onirique"},
+  {name:"Toby",sub:"a friendly party animal",gender:"male",y1:2003,y2:2006,count:33,cat:"individuelle",interest:"Profil très sociable — thèmes festifs et sociaux attendus"},
+  {name:"Angie: age 18 & 20",sub:"",gender:"female",y1:1996,y2:1996,count:48,cat:"individuelle",interest:"Même personne à 18 et 20 ans — micro-étude longitudinale"},
+  {name:"Dahlia",sub:"concerns with appearance",gender:"female",y1:2000,y2:2000,count:24,cat:"individuelle",interest:"Préoccupations liées à l'apparence — intéressant pour la modélisation émotionnelle"},
+  {name:"Jasmine 1: middle school",sub:"",gender:"female",y1:1999,y2:2001,count:39,cat:"longitudinale",interest:"Jasmine à l'école primaire — début de la série"},
+  {name:"Madeline 0: Childhood",sub:"",gender:"female",y1:1987,y2:1996,count:29,cat:"longitudinale",interest:"Rêves d'enfance de Madeline — rares"},
+  {name:"Tom: An outgoing man",sub:"",gender:"male",y1:1990,y2:1999,count:27,cat:"individuelle",interest:"27 rêves — série courte"},
+  {name:"Vickie: a 10-year-old girl",sub:"",gender:"female",y1:1995,y2:1995,count:35,cat:"individuelle",interest:"Fille de 10 ans — données enfants très rares"},
+  {name:"Mark: a young boy",sub:"",gender:"male",y1:1997,y2:1999,count:23,cat:"individuelle",interest:"Rêves d'un garçon de 8-10 ans"},
+  {name:"Edna: a blind woman",sub:"congenitally blind",gender:"female",y1:1948,y2:1949,count:19,cat:"special",interest:"19 rêves d'une aveugle de naissance — décrit le monde via sons et textures"},
+  {name:"Ringo: from the 1960s",sub:"",gender:"male",y1:1964,y2:1964,count:16,cat:"individuelle",interest:"Série très courte — contexte années 60"},
+];
+
+const MAX_VOL = Math.max(...SERIES.map(s=>s.count));
+let currentFilter = 'all';
+let sortState = { key: 'count', dir: 'desc' };
+
+const CAT_LABELS = {
+  longitudinale: 'longitudinale',
+  group: 'group',
+  individuelle: 'individuelle',
+  special: 'profil spécial'
+};
+
+function filterFn(s) {
+  if (currentFilter === 'female') return s.gender === 'female';
+  if (currentFilter === 'male') return s.gender === 'male';
+  if (currentFilter === 'longitudinale') return s.cat === 'longitudinale';
+  if (currentFilter === 'group') return s.cat === 'group';
+  if (currentFilter === 'special') return s.cat === 'special';
+  if (currentFilter === 'old') return s.y1 < 1960;
+  return true;
+}
+
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let data = SERIES.filter(s =>
+    filterFn(s) && (
+      s.name.toLowerCase().includes(q) ||
+      s.interest.toLowerCase().includes(q) ||
+      s.cat.toLowerCase().includes(q)
+    )
+  );
+  data.sort((a, b) => {
+    let av = a[sortState.key], bv = b[sortState.key];
+    if (typeof av === 'string') { av = av.toLowerCase(); bv = bv.toLowerCase(); }
+    return sortState.dir === 'asc' ? (av > bv ? 1 : -1) : (av < bv ? 1 : -1);
+  });
+  document.getElementById('resultCount').textContent =
+    data.length + ' série(s) affichée(s)';
+  document.getElementById('tableBody').innerHTML = data.map(s => {
+    const pct = Math.round(s.count / MAX_VOL * 100);
+    const gBadge = s.gender === 'female' ? 'badge-f' : s.gender === 'male' ? 'badge-m' : 'badge-mix';
+    const gLabel = s.gender === 'female' ? 'F' : s.gender === 'male' ? 'M' : 'M+F';
+    const period = s.y1 === s.y2 ? s.y1 : s.y1 + '–' + (s.y2 > 2023 ? '…' : s.y2);
+    const isDE = s.sub && s.sub.includes('Deutsch');
+    const deBadge = isDE ? '<span class="badge badge-de">DE</span>' : '';
+    return `<tr>
+      <td>
+        <div class="s-name">${s.name}${deBadge}</div>
+        ${s.sub && !isDE ? `<div class="s-sub">${s.sub}</div>` : ''}
+      </td>
+      <td><span class="badge ${gBadge}">${gLabel}</span></td>
+      <td style="font-family:'DM Sans',monospace;font-size:12px;color:var(--ink-muted);white-space:nowrap">${period}</td>
+      <td>
+        <div class="vol-cell">
+          <div class="vol-bar"><div class="vol-fill" style="width:${pct}%"></div></div>
+          <span class="vol-num">${s.count.toLocaleString()}</span>
+        </div>
+      </td>
+      <td><span class="cat-pill">${CAT_LABELS[s.cat]||s.cat}</span></td>
+      <td class="interest-text">${s.interest}</td>
+    </tr>`;
+  }).join('');
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function sortBy(key) {
+  if (sortState.key === key) sortState.dir = sortState.dir === 'asc' ? 'desc' : 'asc';
+  else { sortState.key = key; sortState.dir = 'desc'; }
+  document.querySelectorAll('th[id]').forEach(th => {
+    th.classList.remove('sorted');
+    th.textContent = th.textContent.replace(/ [↑↓]$/, '');
+  });
+  const th = document.getElementById('th-' + key);
+  if (th) {
+    th.classList.add('sorted');
+    th.textContent += sortState.dir === 'asc' ? ' ↑' : ' ↓';
+  }
+  applyFilters();
+}
+
+applyFilters();
+</script>
+</body>
+</html>
