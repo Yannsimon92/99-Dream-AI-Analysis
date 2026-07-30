@@ -35,7 +35,7 @@ function Nav({ accent }) {
           </a>
           <div className="nav-links">
             {NAV.map(n => <a key={n.id} href={`#${n.id}`}>{n.label}</a>)}
-            <a href="dataset-analysis.html">Dataset</a>
+            <a href="dataset-analysis.html">Données</a>
           </div>
           <a className="nav-cta" href="../desktop-app/index.html">Analyser un rêve</a>
           <button className="menu-btn" onClick={() => setOpen(o => !o)} aria-label="menu">
@@ -45,7 +45,7 @@ function Nav({ accent }) {
       </nav>
       <div className={"mobile-drawer" + (open ? " open" : "")}>
         {NAV.map(n => <a key={n.id} href={`#${n.id}`} onClick={() => setOpen(false)}>{n.label}</a>)}
-        <a href="dataset-analysis.html" onClick={() => setOpen(false)}>Dataset</a>
+        <a href="dataset-analysis.html" onClick={() => setOpen(false)}>Données</a>
         <a href="../desktop-app/index.html" onClick={() => setOpen(false)} style={{ color: accent }}>Analyser un rêve →</a>
       </div>
     </React.Fragment>
@@ -60,7 +60,7 @@ function Hero({ accent }) {
           <div className="b" style={{ width: 240, height: 240, top: 60, left: 120, background: 'var(--blob-peach)' }} />
           <div className="b" style={{ width: 200, height: 200, top: 160, left: 30, background: 'var(--blob-lavender)', animationDelay: '-4s' }} />
         </div>
-        <div className="hero-label ds-label">À propos · Data Science · IA</div>
+        <div className="hero-label ds-label">À propos · Science des données · IA</div>
         <h1>L'histoire d'un <em>rêve</em> devenu produit.</h1>
         <p className="sub">
           Ce site raconte comment un corpus de recherche sur les rêves est devenu
@@ -101,7 +101,7 @@ function Footer({ accent }) {
             <h4>À propos</h4>
             <a href="#histoire">Histoire</a>
             <a href="#manifeste">Manifeste</a>
-            <a href="dataset-analysis.html">Dataset</a>
+            <a href="dataset-analysis.html">Données</a>
           </div>
           <div className="col">
             <h4>Projet</h4>

@@ -31,6 +31,12 @@ const EMO = {
   anger: '#A8442A', disgust: '#5E8467', surprise: '#C9B6E8', neutral: '#B9AF9F',
 };
 
+// emotion → libellé affiché (les clés restent en anglais, pour EMO et le tri)
+const EMO_FR = {
+  joy: 'joie', sadness: 'tristesse', fear: 'peur',
+  anger: 'colère', disgust: 'dégoût', surprise: 'surprise', neutral: 'neutre',
+};
+
 const ENTRIES = [
   { title: 'La maison qui respire', date: '28 mai', emo: 'fear', dom: 62,
     bars: [['fear', 62], ['surprise', 34], ['neutral', 18]] },
@@ -65,4 +71,4 @@ function TabBar({ active, onNav }) {
   );
 }
 
-Object.assign(window, { AppIcon, EMO, ENTRIES, TABS, TabBar });
+Object.assign(window, { AppIcon, EMO, EMO_FR, ENTRIES, TABS, TabBar });

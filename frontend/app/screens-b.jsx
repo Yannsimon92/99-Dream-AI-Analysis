@@ -28,7 +28,7 @@ function ResultScreen({ dream, onBack, onPlay, accent, variant, similarDreams })
           <div className="map-bars">
             {d.bars.map((b, i) => (
               <div className="eb" key={i}>
-                <span className="name">{b[0]}</span>
+                <span className="name">{EMO_FR[b[0]]}</span>
                 <span className="track"><span className="fill" style={{ width: b[1] + '%', background: EMO[b[0]] }} /></span>
                 <span className="pct">{b[1]}%</span>
               </div>
@@ -44,7 +44,7 @@ function ResultScreen({ dream, onBack, onPlay, accent, variant, similarDreams })
                   opacity: 0.55, top: POS[i].top, left: POS[i].left,
                   transform: 'translateX(-50%)',
                 }}>
-                  <span className="lbl">{b[0]} {b[1]}%</span>
+                  <span className="lbl">{EMO_FR[b[0]]} {b[1]}%</span>
                 </div>
               );
             })}
@@ -53,7 +53,7 @@ function ResultScreen({ dream, onBack, onPlay, accent, variant, similarDreams })
 
         <div className="map-dom">
           <div className="app-label">Émotion dominante</div>
-          <div className="name" style={{ color: accent }}>{d.bars[0][0]}</div>
+          <div className="name" style={{ color: accent }}>{EMO_FR[d.bars[0][0]]}</div>
           <div className="pct">{d.bars[0][1]}% du rêve</div>
         </div>
 
@@ -92,7 +92,7 @@ function PlayScreen({ dream, onBack, accent }) {
       </div>
       <div className="play-content">
         <div className="play-tags">
-          {d.bars.map((b, i) => <span className="ds-pill" key={i}>{b[0]}</span>)}
+          {d.bars.map((b, i) => <span className="ds-pill" key={i}>{EMO_FR[b[0]]}</span>)}
         </div>
         <h1 className="app-title" style={{ fontSize: 30 }}><em>{d.title}</em></h1>
         <p className="app-sub" style={{ marginTop: 8, fontSize: 14 }}>Restitution sonore · 1 min 24</p>
@@ -129,7 +129,7 @@ function JournalScreen({ onOpen, accent }) {
             <div className="orb" style={{ background: EMO[e.emo] }} />
             <div style={{ flex: 1 }}>
               <div className="t">{e.title}</div>
-              <div className="meta"><span>{e.date}</span><span>·</span><span>{e.emo} {e.dom}%</span></div>
+              <div className="meta"><span>{e.date}</span><span>·</span><span>{EMO_FR[e.emo]} {e.dom}%</span></div>
             </div>
             <AppIcon name="back" style={{ width: 16, height: 16, stroke: 'var(--ink-35)', transform: 'rotate(180deg)' }} />
           </div>

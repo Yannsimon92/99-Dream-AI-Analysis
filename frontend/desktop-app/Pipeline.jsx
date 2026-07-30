@@ -1,6 +1,6 @@
 /* Pipeline — animated named progress steps during analysis. */
 
-const PIPELINE_STEPS = ['Saisie', 'Embedding', 'Classification', 'Interprétation', 'Rêves voisins'];
+const PIPELINE_STEPS = ['Saisie', 'Vectorisation', 'Classification', 'Interprétation', 'Rêves voisins'];
 
 function Pipeline({ current }) {
   // current = index of active step; steps before it are done.

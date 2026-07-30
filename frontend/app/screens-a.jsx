@@ -24,7 +24,7 @@ function HomeScreen({ onCompose, onOpen, accent }) {
           <div className="core" style={{ background: EMO[today.emo] }} />
           <div className="feel">
             <div className="lab">Aujourd'hui</div>
-            <div className="name">{today.emo}</div>
+            <div className="name">{EMO_FR[today.emo]}</div>
             <div className="pct">{today.dom}%</div>
           </div>
         </div>
@@ -40,7 +40,7 @@ function HomeScreen({ onCompose, onOpen, accent }) {
               <div className="mini" style={{ background: EMO[e.emo] }} />
               <div style={{ flex: 1 }}>
                 <div className="t">{e.title}</div>
-                <div className="d">{e.date} · {e.emo}</div>
+                <div className="d">{e.date} · {EMO_FR[e.emo]}</div>
               </div>
             </div>
           ))}

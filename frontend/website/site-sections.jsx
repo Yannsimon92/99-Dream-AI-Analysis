@@ -2,10 +2,16 @@
    Website UI kit — Pipeline, Gallery, Manifesto, DreamModal
    ============================================================ */
 
+// emotion (clé API, anglais) → libellé affiché
+const EMO_FR = {
+  joy: 'joie', sadness: 'tristesse', fear: 'peur',
+  anger: 'colère', disgust: 'dégoût', surprise: 'surprise', neutral: 'neutre',
+};
+
 const STEPS = [
   { n: '01', name: 'Capture',  detail: 'récit · voix',     c: 'var(--blob-peach)' },
   { n: '02', name: 'Analyse',  detail: 'vecteur d\'émotion', c: 'var(--blob-sky)' },
-  { n: '03', name: 'Mapping',  detail: 'couleur · forme',  c: 'var(--blob-lavender)' },
+  { n: '03', name: 'Cartographie', detail: 'couleur · forme', c: 'var(--blob-lavender)' },
   { n: '04', name: 'Synthèse', detail: 'image · son · 3D',  c: 'var(--blob-yellow)' },
   { n: '05', name: 'Restitution', detail: 'expérience',     c: 'var(--blob-coral)' },
 ];
@@ -119,7 +125,7 @@ function Gallery({ onOpen, dreams }) {
               <div className="meta">
                 <p className="title">{d.title}</p>
                 <div className="row">
-                  <span className="ds-pill">{d.emotion}</span>
+                  <span className="ds-pill">{EMO_FR[d.emotion] || d.emotion}</span>
                   <span className="author">{d.author}</span>
                 </div>
               </div>
@@ -158,7 +164,7 @@ function DreamModal({ dream, onClose }) {
           <div className="emotion-bars">
             {dream.bars.map((b, i) => (
               <div className="eb" key={i}>
-                <span className="name">{b[0]}</span>
+                <span className="name">{EMO_FR[b[0]] || b[0]}</span>
                 <span className="track"><span className="fill" style={{ width: b[1] + '%', background: b[2] }} /></span>
                 <span className="pct">{b[1]}%</span>
               </div>
